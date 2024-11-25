@@ -22,4 +22,10 @@ public class RankingController : ControllerBase
 
         return response;
     }
+
+    [HttpGet("TestGet")]
+    public async Task<ActionResult<int>> TestGet()
+    {
+        return 10;
+    }
 }

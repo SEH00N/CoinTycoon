@@ -1,3 +1,5 @@
+using Newtonsoft.Json;
+
 namespace ProjectCoinServer;
 
 public class Program
@@ -5,7 +7,11 @@ public class Program
     public static void Main(string[] args)
     {
         WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
-        builder.Services.AddControllers();
+        builder.Services.AddControllers(options => {
+            options.SuppressImplicitRequiredAttributeForNonNullableReferenceTypes = true;
+        }).AddNewtonsoftJson(options => {
+            options.SerializerSettings.NullValueHandling = NullValueHandling.Include;
+        });
 
         WebApplication app = builder.Build();
         app.MapControllers();
