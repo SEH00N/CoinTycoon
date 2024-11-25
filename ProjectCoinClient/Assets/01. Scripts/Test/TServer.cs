@@ -1,26 +1,10 @@
 using System.Collections;
 using System.Text;
 using Newtonsoft.Json;
+using ProjectCoin.Networks.Payloads;
 using TMPro;
 using UnityEngine;
 using UnityEngine.Networking;
-
-public class Payload
-{
-}
-
-public class RequestPayload : Payload
-{
-    public string UserID { get; set; }
-}
-
-public class RankingListRequest : RequestPayload
-{
-    public const string POST = "ranking_list";
-
-    public int Index { get; set; }
-    public int Count { get; set; }
-}
 
 public class TServer : MonoBehaviour
 {
@@ -32,28 +16,6 @@ public class TServer : MonoBehaviour
         string url = $"{BASE_URL}{urlInputField.text}";
         StartCoroutine(WebRequestRoutine(url));
     }
-
-    // private IEnumerator WebRequestRoutine(string url)
-    // {
-    //     RankingListRequest payload = new RankingListRequest();
-    //     string payloadData = JsonConvert.SerializeObject(payload);
-    //     byte[] bodyRaw = Encoding.UTF8.GetBytes(payloadData);
-
-    //     UnityWebRequest request = new UnityWebRequest(url, "POST");
-    //     request.uploadHandler = new UploadHandlerRaw(bodyRaw);
-    //     request.SetRequestHeader("Content-Type", "application/json");
-
-    //     yield return request.SendWebRequest();
-
-    //     if (request.result == UnityWebRequest.Result.Success)
-    //     {
-    //         Debug.Log($"Response: {request.downloadHandler.text}");
-    //     }
-    //     else
-    //     {
-    //         Debug.LogError($"Error: {request.error}");
-    //     }
-    // }
 
     private IEnumerator WebRequestRoutine(string url)
     {

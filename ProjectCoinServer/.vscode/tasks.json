@@ -2,28 +2,29 @@
     "version": "2.0.0",
     "tasks": [
         {
-            "label": "build",
+            "label": "ServerBuild",
             "command": "dotnet",
             "type": "process",
             "args": [
                 "build",
-                "${workspaceFolder}/ProjectCoinServer.sln",
-                "/property:GenerateFullPaths=true",
-                "/consoleloggerparameters:NoSummary;ForceNoAlign"
+                "${workspaceFolder}/ProjectCoinServer.csproj",
+                "/property:GenerateFullPaths=true"
             ],
             "problemMatcher": "$msCompile"
         },
         {
-            "label": "publish",
-            "command": "dotnet",
-            "type": "process",
-            "args": [
-                "publish",
-                "${workspaceFolder}/ProjectCoinServer.sln",
-                "/property:GenerateFullPaths=true",
-                "/consoleloggerparameters:NoSummary;ForceNoAlign"
-            ],
-            "problemMatcher": "$msCompile"
+            "label": "PublishSharedCode",
+            "type": "shell",
+            "windows": {
+                "command": [
+                    "./BuildScripts/PublishSharedCode.ps1"
+                ]
+            },
+            "osx": {
+                "command": [
+                    "./BuildScripts/PublishSharedCode.sh"
+                ]
+            }
         },
         {
             "label": "watch",
@@ -33,9 +34,21 @@
                 "watch",
                 "run",
                 "--project",
-                "${workspaceFolder}/ProjectCoinServer.sln"
+                "${workspaceFolder}/PrincessServer.csproj"
             ],
             "problemMatcher": "$msCompile"
+        },
+        {
+            "label": "Build",
+            "dependsOn": [
+                "ServerBuild",
+                "PublishSharedCode"
+            ],
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            },
+            "problemMatcher": []
         }
     ]
 }
