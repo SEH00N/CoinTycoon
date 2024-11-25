@@ -1,4 +1,7 @@
 #!/bin/sh
 
 echo "Copy SharedCode"
-cp -rf "./src/SharedCode" "../ProjectCoinClient/Assets/01. Scripts/SharedCode"
+
+source_folder="./src/SharedCode/"
+target_folder="../ProjectCoinClient/Assets/01. Scripts/SharedCode/"
+rm -rf "$target_folder" && cp -rf "$source_folder" "$target_folder"
