@@ -5,6 +5,6 @@ namespace ProjectCoin.Networks.Payloads
 {
     public class RankingListResponse : ResponsePayload
     {
-        public List<RankingData> RankingList { get; set; }
+        public List<RankingData> rankingList = null;
     }
 }

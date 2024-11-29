@@ -2,14 +2,12 @@ using Microsoft.AspNetCore.Mvc;
 using ProjectCoin.Networks.Payloads;
 using ProjectCoin.Datas;
 
-namespace ProjectCoinServer.Controllers
+namespace ProjectCoin.Networks.Controllers
 {
     [ApiController]
-    [Route(RankingController.ROUTE)]
+    [Route(NetworkDefine.RANKING_ROUTE)]
     public class RankingController : ControllerBase
     {
-        public const string ROUTE = "ranking";
-
         [HttpPost(RankingListRequest.POST)]
         public async Task<ActionResult<RankingListResponse>> RankingListRequestPost([FromBody]RankingListRequest req)
         {
@@ -17,7 +15,8 @@ namespace ProjectCoinServer.Controllers
             // make raking list from redis
 
             RankingListResponse response = new RankingListResponse() {
-                RankingList = rankingList
+                networkResult = ENetworkResult.Success,
+                rankingList = rankingList
             };
 
             return response;

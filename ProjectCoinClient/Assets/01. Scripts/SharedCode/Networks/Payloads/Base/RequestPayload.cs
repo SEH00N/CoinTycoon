@@ -1,7 +1,10 @@
 namespace ProjectCoin.Networks.Payloads
 {
-    public class RequestPayload : Payload
+    public abstract class RequestPayload : Payload
     {
-        public string UserID { get; set; }
+        public abstract string Route { get; }
+        public abstract string Post { get; }
+
+        public string userID = "";
     }
 }

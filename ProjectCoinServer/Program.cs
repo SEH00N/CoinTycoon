@@ -1,6 +1,6 @@
 using Newtonsoft.Json;
 
-namespace ProjectCoinServer;
+namespace ProjectCoin;
 
 public class Program
 {

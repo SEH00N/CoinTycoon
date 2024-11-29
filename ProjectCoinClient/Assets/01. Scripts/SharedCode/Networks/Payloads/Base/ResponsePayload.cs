@@ -2,6 +2,6 @@ namespace ProjectCoin.Networks.Payloads
 {
     public class ResponsePayload : Payload
     {
-        public ENetworkResult NetworkResult { get; set; }
+        public ENetworkResult networkResult = ENetworkResult.None;
     }
 }

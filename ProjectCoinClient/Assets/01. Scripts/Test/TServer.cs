@@ -1,40 +1,38 @@
+using System;
 using System.Collections;
 using System.Text;
 using Newtonsoft.Json;
+using ProjectCoin.Networks;
 using ProjectCoin.Networks.Payloads;
 using TMPro;
 using UnityEngine;
 using UnityEngine.Networking;
 
-public class TServer : MonoBehaviour
+namespace ProjectCoin.Tests
 {
-    [SerializeField] TMP_InputField urlInputField = null;
-    private const string BASE_URL = "https://localhost:7161/";
-
-    public void SendRequest()
+    public class TServer : MonoBehaviour
     {
-        string url = $"{BASE_URL}{urlInputField.text}";
-        StartCoroutine(WebRequestRoutine(url));
-    }
+        private const string BASE_URL = "https://localhost:7161";
 
-    private IEnumerator WebRequestRoutine(string url)
-    {
-        RankingListRequest payload = new RankingListRequest();
-        string payloadData = JsonConvert.SerializeObject(payload);
-
-        using(UnityWebRequest request = UnityWebRequest.Post(url, payloadData, "application/json"))
+        private void Awake()
         {
-            Debug.Log(Encoding.UTF8.GetString(request.uploadHandler.data));
-            yield return request.SendWebRequest();
+            new NetworkManager();
+        }
 
-            if (request.result == UnityWebRequest.Result.Success)
-            {
-                Debug.Log($"Response: {request.downloadHandler.text}");
-            }
-            else
-            {
-                Debug.LogError($"Error: {request.error}/{request.downloadHandler.text}");
-            }
+        public void SendRequest()
+        {
+            RankingListRequest payload = new RankingListRequest(10, 200);
+            ServerConnection tempConnection = new ServerConnection(BASE_URL);
+            NetworkManager.Instance.SendWebRequest<RankingListResponse>(
+                tempConnection, 
+                payload,
+                HandleRankingListResponse
+            );
+        }
+
+        private void HandleRankingListResponse(RankingListResponse response)
+        {
+            Debug.Log($"Request Responsed! : {response.networkResult}");
         }
     }
 }

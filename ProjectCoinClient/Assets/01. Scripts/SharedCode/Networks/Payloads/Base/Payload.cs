@@ -1,4 +1,4 @@
 namespace ProjectCoin.Networks
 {
-    public class Payload { }
+    public abstract class Payload { }
 }
