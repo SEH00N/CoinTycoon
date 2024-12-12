@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace H00N
+namespace H00N.FSM
 {
     public class FSMTransition : MonoBehaviour
     {

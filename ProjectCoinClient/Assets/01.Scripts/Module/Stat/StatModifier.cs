@@ -6,7 +6,7 @@ using UnityEngine;
 namespace H00N
 {
     [Serializable]
-    public class StatModifiers
+    public class StatModifier
     {
         private Dictionary<EStatModifierType, List<float>> modifiers = null;
         public List<float> this[EStatModifierType indexer] => modifiers[indexer];
@@ -27,7 +27,7 @@ namespace H00N
             multiplicationMultipliers = new List<float>();
             modifiers = new Dictionary<EStatModifierType, List<float>>();
 
-            Type classType = typeof(StatModifiers);
+            Type classType = typeof(StatModifier);
             foreach (EStatModifierType modifierType in Enum.GetValues(typeof(EStatModifierType)))
             {
                 FieldInfo field = classType.GetField($"{modifierType}s", BindingFlags.NonPublic | BindingFlags.Instance);

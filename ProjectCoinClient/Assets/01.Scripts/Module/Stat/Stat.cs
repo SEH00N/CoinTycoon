@@ -11,7 +11,7 @@ namespace H00N
         private float currentValue = 10f;
         public float CurrentValue => currentValue;
 
-        private StatModifiers modifiers = new StatModifiers();
+        private StatModifier modifiers = new StatModifier();
 
         public event Action<float> OnValueChangedEvent = null;
 

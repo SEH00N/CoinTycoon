@@ -6,7 +6,7 @@ namespace ProjectCoin.Networks
     {
         public ServerConnection(string expression) : base(expression) { }
 
-        public void CheckConnection()
+        public override void CheckConnection()
         {
             ServerConnectionRequest payload = new ServerConnectionRequest();
             NetworkManager.Instance.SendWebRequest<ServerConnectionResponse>(payload, HandleServerConnectionResponse);

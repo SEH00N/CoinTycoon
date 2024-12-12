@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 
-namespace H00N
+namespace H00N.FSM
 {
     public class FSMState : MonoBehaviour
     {

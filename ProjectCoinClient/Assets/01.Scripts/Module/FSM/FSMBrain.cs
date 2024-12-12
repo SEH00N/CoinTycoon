@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 
-namespace H00N
+namespace H00N.FSM
 {
     public class FSMBrain : MonoBehaviour
     {
@@ -20,8 +20,6 @@ namespace H00N
 
         protected virtual void Awake()
         {
-            Transform statesTrm = transform.Find("States");
-
             fsmParamDictionary = new Dictionary<Type, FSMParamSO>();
             fsmParams.ForEach(i => {
                 Type type = i.GetType();
@@ -31,7 +29,7 @@ namespace H00N
             });
 
             List<FSMState> states = new List<FSMState>();
-            statesTrm.GetComponentsInChildren<FSMState>(states);
+            transform.GetComponentsInChildren<FSMState>(states);
             states.ForEach(i => i.Init(this));
         }
 
@@ -44,14 +42,6 @@ namespace H00N
         {
             currentState?.UpdateState();
         }
-
-        #if UNITY_EDITOR
-        private void OnValidate()
-        {
-            if (transform.Find("States") == null)
-                new GameObject("States").transform.SetParent(transform);
-        }
-        #endif
 
         public void ChangeState(FSMState targetState)
         {

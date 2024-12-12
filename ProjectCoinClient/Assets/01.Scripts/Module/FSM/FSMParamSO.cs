@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace H00N
+namespace H00N.FSM
 {
 	public abstract class FSMParamSO : ScriptableObject
 	{
