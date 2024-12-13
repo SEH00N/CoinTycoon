@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Reflection;
 using UnityEngine;
 
-namespace H00N
+namespace H00N.Stats
 {
     [Serializable]
     public class StatModifier

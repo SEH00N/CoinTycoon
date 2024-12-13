@@ -1,6 +1,6 @@
 using System;
 
-namespace H00N
+namespace H00N.Stats
 {
     [Serializable]
     public struct StatModifierSlot

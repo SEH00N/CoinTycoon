@@ -1,4 +1,4 @@
-namespace H00N
+namespace H00N.Stats
 {
     public enum EStatModifierType
     {

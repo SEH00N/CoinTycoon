@@ -1,7 +1,7 @@
 using System;
 using UnityEngine;
 
-namespace H00N
+namespace H00N.Stats
 {
     [Serializable]
     public class Stat
