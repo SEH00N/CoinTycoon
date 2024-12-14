@@ -35,7 +35,7 @@ namespace ProjectCoin.Farms
 
         private void HandleGrowUp(int growStep)
         {
-            plantRenderer.sprite = field.CurrentCropsData.cropPlantSprites[growStep];
+            plantRenderer.sprite = field.CurrentCropData.cropPlantSprites[growStep];
         }
     }
 }

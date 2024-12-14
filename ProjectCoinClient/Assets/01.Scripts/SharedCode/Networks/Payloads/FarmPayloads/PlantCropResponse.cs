@@ -1,6 +1,6 @@
 namespace ProjectCoin.Networks.Payloads
 {
-    public class PlantCropsResponse : ResponsePayload
+    public class PlantCropResponse : ResponsePayload
     {
         public int cropID = 0;
     }

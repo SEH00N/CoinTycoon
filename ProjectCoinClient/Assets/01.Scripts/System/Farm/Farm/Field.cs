@@ -13,8 +13,8 @@ namespace ProjectCoin.Farms
         public event Action<EFieldState> OnStateChangedEvent = null;
         public event Action<int> OnGrowUpEvent = null;
 
-        private CropsSO currentCropsData = null;
-        public CropsSO CurrentCropsData => currentCropsData;
+        private CropSO currentCropData = null;
+        public CropSO CurrentCropData => currentCropData;
 
         private EFieldState currentState = EFieldState.None;
         public EFieldState CurrentState => currentState;
@@ -23,7 +23,7 @@ namespace ProjectCoin.Farms
 
         #if UNITY_EDITOR
         [Space(10f)]
-        [SerializeField] CropsSO testData = null;
+        [SerializeField] CropSO testData = null;
 
         [ContextMenu("TestPlant")]
         public void TestPlant()
@@ -43,13 +43,13 @@ namespace ProjectCoin.Farms
             currentState = EFieldState.Empty;
         }
 
-        public void Plant(CropsSO cropsData)
+        public void Plant(CropSO cropData)
         {
-            currentCropsData = cropsData;
+            currentCropData = cropData;
             currentState = EFieldState.None;
 
-            PlantCropsRequest payload = new PlantCropsRequest(currentCropsData.id, fieldID);
-            NetworkManager.Instance.SendWebRequest<PlantCropsResponse>(payload, HandlePlantCropsResponse);
+            PlantCropRequest payload = new PlantCropRequest(currentCropData.id, fieldID);
+            NetworkManager.Instance.SendWebRequest<PlantCropResponse>(payload, HandlePlantCropResponse);
         }
         
         public void Water()
@@ -67,12 +67,25 @@ namespace ProjectCoin.Farms
 
             DateManager.Instance.OnTickCycleEvent -= HandleTickCycleEvent;
 
-            // currentCropsData.TableRow.productCropID; 생산물 소환
-            currentCropsData = null;
+            // currentCropData.TableRow.productCropID; 생산물 소환
+            PlantCropRequest payload = new PlantCropRequest(currentCropData.id, fieldID);
+            NetworkManager.Instance.SendWebRequest<PlantCropResponse>(payload, HandlePlantCropResponse);
         }
 
-        private void HandlePlantCropsResponse(PlantCropsResponse res)
+        private void HandleHarvestResponse(HarvestResponse res)
         {
+            if (res.networkResult != ENetworkResult.Success)
+                return;
+
+            // Instantiate
+            currentCropData = null;
+        }
+
+        private void HandlePlantCropResponse(PlantCropResponse res)
+        {
+            if(res.networkResult != ENetworkResult.Success)
+                return;
+
             growth = -1;
             ChangeState(EFieldState.Dried);
             GrowUp();
@@ -92,13 +105,13 @@ namespace ProjectCoin.Farms
         private void GrowUp()
         {
             growth++;
-            if(growth % currentCropsData.TableRow.growthRate != 0)
+            if(growth % currentCropData.TableRow.growthRate != 0)
                 return;
 
-            int currentStep = growth / currentCropsData.TableRow.growthRate;
+            int currentStep = growth / currentCropData.TableRow.growthRate;
             OnGrowUpEvent?.Invoke(currentStep);
 
-            if (currentStep >= currentCropsData.TableRow.growthStep - 1)
+            if (currentStep >= currentCropData.TableRow.growthStep - 1)
                 ChangeState(EFieldState.Fruition);
         }
 

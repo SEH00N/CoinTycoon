@@ -4,7 +4,7 @@ using H00N.DataTables;
 namespace ProjectCoin.DataTables
 {
     [Serializable]
-    public class CropsTableRow : DataTableRow
+    public class CropTableRow : DataTableRow
     {
         public int growthStep;
         public int growthRate;
@@ -12,5 +12,5 @@ namespace ProjectCoin.DataTables
         public string nameLocalKey;
     }
 
-    public class CropsTable : DataTable<CropsTableRow> { }
+    public class CropTable : DataTable<CropTableRow> { }
 }

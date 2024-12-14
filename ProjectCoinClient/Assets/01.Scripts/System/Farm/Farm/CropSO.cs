@@ -5,7 +5,7 @@ using UnityEngine;
 namespace ProjectCoin.Farms
 {
     [CreateAssetMenu(menuName = "SO/Farm/CropsData")]
-    public class CropsSO : DataTableSO<CropsTable, CropsTableRow>
+    public class CropSO : DataTableSO<CropTable, CropTableRow>
     {
         public Sprite[] cropPlantSprites = null;
     }
