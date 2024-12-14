@@ -7,6 +7,6 @@ namespace ProjectCoin.Farms
     [CreateAssetMenu(menuName = "SO/Farm/CropsData")]
     public class CropsSO : DataTableSO<CropsTable, CropsTableRow>
     {
-        
+        public Sprite[] cropPlantSprites = null;
     }
 }

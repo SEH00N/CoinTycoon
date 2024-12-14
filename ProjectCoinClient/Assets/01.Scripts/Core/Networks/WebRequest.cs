@@ -23,20 +23,24 @@ namespace ProjectCoin.Networks
 
         public async void RequestAsync()
         {
-            if(MiddleWare() == false)
-                return;
+            try {
+                if(MiddleWare() == false)
+                    return;
 
-            string payloadData = JsonConvert.SerializeObject(requestPayload);
-            string url = $"{serverConnection.ConnectionExpression}/{requestPayload.Route}/{requestPayload.Post}";
-            using (UnityWebRequest request = Post(url, payloadData, "application/json"))
-            {
-                await request.SendWebRequest();
+                string payloadData = JsonConvert.SerializeObject(requestPayload);
+                string url = $"{serverConnection.ConnectionExpression}/{requestPayload.Route}/{requestPayload.Post}";
+                using (UnityWebRequest request = Post(url, payloadData, "application/json"))
+                {
+                    await request.SendWebRequest();
 
-                Debug.Log($"Response: {request.downloadHandler.text}");
-                if (request.result == Result.Success)
-                    HandleReponse(request.downloadHandler.text);
-                else
-                    HandleError(request.error);
+                    Debug.Log($"Response: {request.downloadHandler.text}");
+                    if (request.result == Result.Success)
+                        HandleReponse(request.downloadHandler.text);
+                    else
+                        HandleError(request.error);
+                }
+            } catch(Exception err) {
+                Debug.LogWarning(err);
             }
         }
 
