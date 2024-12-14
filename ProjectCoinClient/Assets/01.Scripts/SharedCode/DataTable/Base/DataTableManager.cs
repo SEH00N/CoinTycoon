@@ -13,36 +13,24 @@ namespace H00N.DataTables
         private static bool initialized = false;
         public static bool Initialized => initialized;
 
-        public static void Initialize(string dataRootPath)
-        {
-            dataTableDictionary = LoadAllDataTable(tableType => {
-                TextReader reader = new StreamReader($"{dataRootPath}/{tableType.Name}.json");
-                string jsonData = reader.ReadToEnd();
-                return CreateTable(tableType, jsonData);
-            });
-
-            InitializeInternal();
-        }
-
         public static void Initialize(Dictionary<string, string> jsonDatas)
         {
+            if (initialized)
+                return;
+
             dataTableDictionary = LoadAllDataTable(tableType => {
                 if(jsonDatas.TryGetValue(tableType.Name, out string jsonData))
                     return CreateTable(tableType, jsonData);
                 return CreateTable(tableType, "");
             });
 
-            InitializeInternal();
+            initialized = true;
         }
 
         public static void Release()
         {
             initialized = false;
-        }
-
-        private static void InitializeInternal()
-        {
-            initialized = true;
+            dataTableDictionary = null;
         }
 
         public static TTable GetTable<TTable>() where TTable : class, IDataTable
