@@ -6,7 +6,6 @@ using H00N.Resources.Pools;
 using Newtonsoft.Json;
 using ProjectCoin.Networks;
 using UnityEngine;
-using UnityEngine.ResourceManagement.AsyncOperations;
 
 namespace ProjectCoin
 {
