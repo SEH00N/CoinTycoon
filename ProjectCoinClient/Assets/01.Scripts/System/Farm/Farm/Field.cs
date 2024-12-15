@@ -40,13 +40,23 @@ namespace ProjectCoin.Farms
 
         private void Awake()
         {
-            currentState = EFieldState.Empty;
+            ChangeState(EFieldState.Fallow);
+        }
+
+        public void Plow()
+        {
+            if(currentState != EFieldState.Fallow)
+                return;
+
+            ChangeState(EFieldState.Empty);
         }
 
         public void Plant(CropSO cropData)
         {
+            if(currentState != EFieldState.Empty)
+                return;
+
             currentCropData = cropData;
-            currentState = EFieldState.None;
 
             PlantCropRequest payload = new PlantCropRequest(currentCropData.id, fieldID);
             NetworkManager.Instance.SendWebRequest<PlantCropResponse>(payload, HandlePlantCropResponse);
@@ -67,9 +77,8 @@ namespace ProjectCoin.Farms
 
             DateManager.Instance.OnTickCycleEvent -= HandleTickCycleEvent;
 
-            // currentCropData.TableRow.productCropID; 생산물 소환
             PlantCropRequest payload = new PlantCropRequest(currentCropData.id, fieldID);
-            NetworkManager.Instance.SendWebRequest<PlantCropResponse>(payload, HandlePlantCropResponse);
+            NetworkManager.Instance.SendWebRequest<HarvestResponse>(payload, HandleHarvestResponse);
         }
 
         private void HandleHarvestResponse(HarvestResponse res)
@@ -77,8 +86,9 @@ namespace ProjectCoin.Farms
             if (res.networkResult != ENetworkResult.Success)
                 return;
 
-            // Instantiate
+            // currentCropData.TableRow.productCropID; 생산물 소환
             currentCropData = null;
+            ChangeState(EFieldState.Fallow);
         }
 
         private void HandlePlantCropResponse(PlantCropResponse res)
