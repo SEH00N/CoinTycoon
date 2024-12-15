@@ -19,6 +19,9 @@ namespace ProjectCoin
         private int dayCounter = 0;
         private int tickCounter = 0;
 
+        private bool cycleEnabled = false;
+        public bool CycleEnabled => cycleEnabled;
+
         private void Awake()
         {
             instance = this;
@@ -26,6 +29,9 @@ namespace ProjectCoin
 
         private void Update()
         {
+            if(cycleEnabled == false)
+                return;
+
             timer -= Time.deltaTime;
             if(timer <= 0f)
             {
@@ -38,6 +44,11 @@ namespace ProjectCoin
                     HandleDateChanged();
                 }
             }
+        }
+
+        public void SetEnable(bool enable)
+        {
+            cycleEnabled = enable;
         }
 
         private void HandleDateChanged()

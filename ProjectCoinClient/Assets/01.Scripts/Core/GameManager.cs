@@ -1,13 +1,11 @@
 using System.Collections.Generic;
 using Cysharp.Threading.Tasks;
 using H00N.DataTables;
+using H00N.Resources;
+using H00N.Resources.Pools;
 using Newtonsoft.Json;
-using ProjectCoin.Farms;
 using ProjectCoin.Networks;
-using Unity.VisualScripting;
 using UnityEngine;
-using UnityEngine.AddressableAssets;
-using UnityEngine.Events;
 using UnityEngine.ResourceManagement.AsyncOperations;
 
 namespace ProjectCoin
@@ -28,10 +26,10 @@ namespace ProjectCoin
 
         public async UniTask InitializeAsync()
         {
-            AsyncOperationHandle<TextAsset> handle = Addressables.LoadAssetAsync<TextAsset>("DataTableJson");
-            await handle.Task;
-            TextAsset dataTableJsonData = handle.Result;
+            ResourceManager.Initialize(new AddressableResourceLoader());
+            PoolManager.Initialize(transform);
 
+            TextAsset dataTableJsonData = await ResourceManager.LoadResourceAsyn<TextAsset>("DataTableJson");
             Dictionary<string, string> jsonDatas = JsonConvert.DeserializeObject<Dictionary<string, string>>(dataTableJsonData.text);
             DataTableManager.Initialize(jsonDatas);
 
@@ -41,6 +39,8 @@ namespace ProjectCoin
         private void OnApplicationQuit()
         {
             DataTableManager.Release();
+            PoolManager.Release();
+            ResourceManager.Release();
         }
     }
 }

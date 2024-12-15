@@ -25,6 +25,7 @@ namespace ProjectCoin
             NetworkManager.Instance.SetServetConnection(serverConnection);
 
             SceneManager.LoadScene(ongoingSceneName);
+            DateManager.Instance.SetEnable(true);
         }
     }
 }
