@@ -15,10 +15,11 @@ namespace H00N.FSM
         private Dictionary<Type, FSMParamSO> fsmParamDictionary = null;
 
         [Space(15f)]
-        [SerializeField] FSMState currentState = null;
+        [SerializeField] FSMState defaultState = null;
+        private FSMState currentState = null;
         public FSMState CurrentState => currentState;
 
-        protected virtual void Awake()
+        public virtual void Initialize()
         {
             fsmParamDictionary = new Dictionary<Type, FSMParamSO>();
             fsmParams.ForEach(i => {
@@ -31,11 +32,9 @@ namespace H00N.FSM
             List<FSMState> states = new List<FSMState>();
             transform.GetComponentsInChildren<FSMState>(states);
             states.ForEach(i => i.Init(this));
-        }
 
-        protected virtual void Start()
-        {
-            currentState?.EnterState();
+            if(defaultState != null)
+                ChangeState(defaultState);
         }
 
         protected virtual void Update()

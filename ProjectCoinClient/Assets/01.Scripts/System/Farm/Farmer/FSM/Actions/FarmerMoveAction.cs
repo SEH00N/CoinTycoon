@@ -1,4 +1,4 @@
-using H00N.Stats;
+using H00N.Extensions;
 using UnityEngine;
 
 namespace ProjectCoin.Farms.AI
@@ -9,14 +9,11 @@ namespace ProjectCoin.Farms.AI
         {
             base.UpdateState();
 
+            if(aiData.currentTarget == null)
+                return;
+
             Vector3 targetPosition = aiData.currentTarget.position;
-            Vector3 direction = targetPosition - brain.transform.position;
-            direction.z = 0f;
-
-            float moveSpeed = Time.deltaTime * aiData.farmerStat[EStatType.MoveSpeed];
-            Vector3 moveVector = direction.normalized * moveSpeed;
-
-            brain.transform.Translate(moveVector);
+            aiData.movement.SetDestination(targetPosition.PlaneVector());
         }
     }
 }

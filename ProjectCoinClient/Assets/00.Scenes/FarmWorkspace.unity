@@ -249,6 +249,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 80615415}
+  - component: {fileID: 80615417}
   - component: {fileID: 80615416}
   m_Layer: 0
   m_Name: Visual
@@ -296,6 +297,18 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &80615417
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 80615414}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: af9e598afe1084ad197b5ce453714dab, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &139425320
 GameObject:
   m_ObjectHideFlags: 0
@@ -307,6 +320,7 @@ GameObject:
   - component: {fileID: 139425324}
   - component: {fileID: 139425323}
   - component: {fileID: 139425322}
+  - component: {fileID: 139425325}
   - component: {fileID: 139425321}
   m_Layer: 0
   m_Name: Farmer (1)
@@ -344,7 +358,7 @@ MonoBehaviour:
       m_Calls: []
   fsmParams:
   - {fileID: 11400000, guid: 3fffd54a7560a49f08c8efd9c57f4983, type: 2}
-  currentState: {fileID: 218368861}
+  defaultState: {fileID: 218368861}
 --- !u!114 &139425323
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -374,6 +388,19 @@ Transform:
   - {fileID: 681546142}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &139425325
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 139425320}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f71483a40e2ff4b57a54387593d2fcf8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  acceleration: 10
 --- !u!1 &144286357
 GameObject:
   m_ObjectHideFlags: 0
@@ -467,7 +494,19 @@ MonoBehaviour:
   autoTransitioning: 0
   onStateEnterEvent:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 80615417}
+        m_TargetAssemblyTypeName: ProjectCoin.Farms.FarmerAnimator, Assembly-CSharp
+        m_MethodName: SetHarvest
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   onStateExitEvent:
     m_PersistentCalls:
       m_Calls: []
@@ -504,7 +543,19 @@ MonoBehaviour:
   autoTransitioning: 1
   onStateEnterEvent:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 80615417}
+        m_TargetAssemblyTypeName: ProjectCoin.Farms.FarmerAnimator, Assembly-CSharp
+        m_MethodName: SetMove
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   onStateExitEvent:
     m_PersistentCalls:
       m_Calls: []
@@ -545,11 +596,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 3946543955944703864, guid: 0102eb81489c242258d60b93426dcfaf, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -3.5
+      value: -2.96
       objectReference: {fileID: 0}
     - target: {fileID: 3946543955944703864, guid: 0102eb81489c242258d60b93426dcfaf, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -5
+      value: -6.13
       objectReference: {fileID: 0}
     - target: {fileID: 3946543955944703864, guid: 0102eb81489c242258d60b93426dcfaf, type: 3}
       propertyPath: m_LocalPosition.z
@@ -655,11 +706,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 3946543955944703864, guid: 0102eb81489c242258d60b93426dcfaf, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -3.5
+      value: -2.71
       objectReference: {fileID: 0}
     - target: {fileID: 3946543955944703864, guid: 0102eb81489c242258d60b93426dcfaf, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 2.5
+      value: -1.29
       objectReference: {fileID: 0}
     - target: {fileID: 3946543955944703864, guid: 0102eb81489c242258d60b93426dcfaf, type: 3}
       propertyPath: m_LocalPosition.z
@@ -1011,7 +1062,19 @@ MonoBehaviour:
   autoTransitioning: 0
   onStateEnterEvent:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 80615417}
+        m_TargetAssemblyTypeName: ProjectCoin.Farms.FarmerAnimator, Assembly-CSharp
+        m_MethodName: SetLift
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   onStateExitEvent:
     m_PersistentCalls:
       m_Calls: []
@@ -1025,11 +1088,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 3946543955944703864, guid: 0102eb81489c242258d60b93426dcfaf, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 3.5
+      value: 3.55
       objectReference: {fileID: 0}
     - target: {fileID: 3946543955944703864, guid: 0102eb81489c242258d60b93426dcfaf, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -5
+      value: -6.28
       objectReference: {fileID: 0}
     - target: {fileID: 3946543955944703864, guid: 0102eb81489c242258d60b93426dcfaf, type: 3}
       propertyPath: m_LocalPosition.z
@@ -1248,7 +1311,19 @@ MonoBehaviour:
   autoTransitioning: 0
   onStateEnterEvent:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 80615417}
+        m_TargetAssemblyTypeName: ProjectCoin.Farms.FarmerAnimator, Assembly-CSharp
+        m_MethodName: SetPlow
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   onStateExitEvent:
     m_PersistentCalls:
       m_Calls: []
@@ -1711,7 +1786,19 @@ MonoBehaviour:
   autoTransitioning: 0
   onStateEnterEvent:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 80615417}
+        m_TargetAssemblyTypeName: ProjectCoin.Farms.FarmerAnimator, Assembly-CSharp
+        m_MethodName: SetWater
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   onStateExitEvent:
     m_PersistentCalls:
       m_Calls: []
@@ -1776,11 +1863,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 3946543955944703864, guid: 0102eb81489c242258d60b93426dcfaf, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 3.5
+      value: 3.41
       objectReference: {fileID: 0}
     - target: {fileID: 3946543955944703864, guid: 0102eb81489c242258d60b93426dcfaf, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 2.5
+      value: -1.18
       objectReference: {fileID: 0}
     - target: {fileID: 3946543955944703864, guid: 0102eb81489c242258d60b93426dcfaf, type: 3}
       propertyPath: m_LocalPosition.z
@@ -2071,7 +2158,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 16, y: 29, z: 1}
+  m_LocalScale: {x: 4, y: 4, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1035274171}
@@ -2117,7 +2204,7 @@ SpriteRenderer:
   m_SortingLayerID: 935546513
   m_SortingLayer: -1
   m_SortingOrder: 0
-  m_Sprite: {fileID: 7482667652216324306, guid: 311925a002f4447b3a28927169b83ea6, type: 3}
+  m_Sprite: {fileID: 21300000, guid: a9fe3f3a768d24180856bc7c97b845b9, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -2580,7 +2667,7 @@ MonoBehaviour:
       m_Calls: []
   fsmParams:
   - {fileID: 11400000, guid: 3fffd54a7560a49f08c8efd9c57f4983, type: 2}
-  currentState: {fileID: 1728305031}
+  defaultState: {fileID: 0}
 --- !u!114 &1533639377
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2750,7 +2837,19 @@ MonoBehaviour:
   autoTransitioning: 0
   onStateEnterEvent:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 80615417}
+        m_TargetAssemblyTypeName: ProjectCoin.Farms.FarmerAnimator, Assembly-CSharp
+        m_MethodName: SetIdle
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   onStateExitEvent:
     m_PersistentCalls:
       m_Calls: []
@@ -2894,11 +2993,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 3946543955944703864, guid: 0102eb81489c242258d60b93426dcfaf, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 3.5
+      value: 3.7
       objectReference: {fileID: 0}
     - target: {fileID: 3946543955944703864, guid: 0102eb81489c242258d60b93426dcfaf, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 10
+      value: 3.77
       objectReference: {fileID: 0}
     - target: {fileID: 3946543955944703864, guid: 0102eb81489c242258d60b93426dcfaf, type: 3}
       propertyPath: m_LocalPosition.z
@@ -3093,7 +3192,19 @@ MonoBehaviour:
   autoTransitioning: 0
   onStateEnterEvent:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 80615417}
+        m_TargetAssemblyTypeName: ProjectCoin.Farms.FarmerAnimator, Assembly-CSharp
+        m_MethodName: SetLift
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   onStateExitEvent:
     m_PersistentCalls:
       m_Calls: []
@@ -3150,11 +3261,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 3946543955944703864, guid: 0102eb81489c242258d60b93426dcfaf, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -3.5
+      value: -2.55
       objectReference: {fileID: 0}
     - target: {fileID: 3946543955944703864, guid: 0102eb81489c242258d60b93426dcfaf, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 10
+      value: 3.7
       objectReference: {fileID: 0}
     - target: {fileID: 3946543955944703864, guid: 0102eb81489c242258d60b93426dcfaf, type: 3}
       propertyPath: m_LocalPosition.z

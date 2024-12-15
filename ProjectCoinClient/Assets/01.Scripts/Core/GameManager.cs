@@ -28,7 +28,7 @@ namespace ProjectCoin
             ResourceManager.Initialize(new AddressableResourceLoader());
             PoolManager.Initialize(transform);
 
-            TextAsset dataTableJsonData = await ResourceManager.LoadResourceAsyn<TextAsset>("DataTableJson");
+            TextAsset dataTableJsonData = await ResourceManager.LoadResourceAsync<TextAsset>("DataTableJson");
             Dictionary<string, string> jsonDatas = JsonConvert.DeserializeObject<Dictionary<string, string>>(dataTableJsonData.text);
             DataTableManager.Initialize(jsonDatas);
 

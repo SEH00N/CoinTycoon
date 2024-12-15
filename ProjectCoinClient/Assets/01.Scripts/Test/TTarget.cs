@@ -1,4 +1,3 @@
-using H00N.FSM;
 using ProjectCoin.Farms.AI;
 using UnityEngine;
 
@@ -8,9 +7,9 @@ namespace ProjectCoin.Tests
     {
         [SerializeField] Transform testTarget = null;
 
-        public override void Init(FSMBrain brain, FSMState state)
+        public override void EnterState()
         {
-            base.Init(brain, state);
+            base.EnterState();
             brain.GetFSMParam<FarmerAIDataSO>().currentTarget = testTarget;
         }
     }
