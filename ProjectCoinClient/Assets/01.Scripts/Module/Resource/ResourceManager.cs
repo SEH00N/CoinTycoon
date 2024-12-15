@@ -49,7 +49,7 @@ namespace H00N.Resources
             return resourceHandle;
         }
 
-        public static async UniTask<T> LoadResourceAsyn<T>(string resourceName) where T : Object
+        public static async UniTask<T> LoadResourceAsync<T>(string resourceName) where T : Object
             => await LoadResourceInternal<T>(resourceName, false);
 
         public static T LoadResource<T>(string resourceName) where T : Object

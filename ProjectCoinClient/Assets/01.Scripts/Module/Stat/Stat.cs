@@ -15,10 +15,16 @@ namespace H00N.Stats
 
         public event Action<float> OnValueChangedEvent = null;
 
-        public void Init()
+        public void Initialize()
         {
             modifiers.Init();
             currentValue = baseValue;
+        }
+
+        public void Initialize(float baseValue)
+        {
+            this.baseValue = currentValue = baseValue;
+            modifiers.Init();
         }
 
         private void CalculateValue()

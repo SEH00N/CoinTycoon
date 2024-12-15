@@ -11,7 +11,7 @@ namespace H00N.DataTables
     {
         public int id = 0;
 
-        protected TRow tableRow = null;
+        private TRow tableRow = null;
         public TRow TableRow { 
             get {
                 tableRow ??= GetTableRow();
@@ -28,7 +28,10 @@ namespace H00N.DataTables
         
             await UniTask.WaitUntil(() => DataTableManager.Initialized);
             tableRow = GetTableRow();
+            OnTableInitialized();
         }
+
+        protected virtual void OnTableInitialized() {}
 
         private TRow GetTableRow()
         {

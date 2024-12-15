@@ -9,10 +9,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d1b5f8e9f636c4c1b9d07b63b962df92, type: 3}
-  m_Name: TestFarmerStat
+  m_Script: {fileID: 11500000, guid: 0f9f6d6948e174a8485d49f1b0e39bef, type: 3}
+  m_Name: FarmerStat_0
   m_EditorClassIdentifier: 
-  stats:
-  - statType: 1
-    stat:
-      baseValue: 1
+  id: 0

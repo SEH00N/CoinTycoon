@@ -4,19 +4,18 @@ using UnityEngine;
 
 namespace H00N.Stats
 {
-    [CreateAssetMenu(menuName = "SO/Stat")]
-    public class StatSO : ScriptableObject
+    public abstract class StatSO<TEnum> : ScriptableObject where TEnum : Enum
     {
         [Serializable]
         public class StatSlot
         {
-            public EStatType statType;
+            public TEnum statType;
             public Stat stat;
         }
 
         public List<StatSlot> stats = new List<StatSlot>();
-        private Dictionary<EStatType, Stat> statDictionary;
-        public Stat this[EStatType indexer]
+        private Dictionary<TEnum, Stat> statDictionary;
+        public Stat this[TEnum indexer]
         {
             get
             {
@@ -34,33 +33,27 @@ namespace H00N.Stats
 
         private void OnEnable()
         {
-            statDictionary = new Dictionary<EStatType, Stat>();
-            stats.ForEach(i =>
+            statDictionary = new Dictionary<TEnum, Stat>();
+            stats.ForEach((Action<StatSlot>)(i =>
             {
                 if (statDictionary.ContainsKey(i.statType))
                 {
                     Debug.LogWarning("Stat of Current Type is Already Existed");
                     return;
                 }
-                i.stat.Init();
+                i.stat.Initialize();
                 statDictionary.Add(i.statType, i.stat);
-            });
+            }));
             OnStatChangedEvent?.Invoke();
         }
 
-        public void AddModifier(StatModifierSlot modifierSlot) =>
-            AddModifier(modifierSlot.statType, modifierSlot.modifierType, modifierSlot.value);
-
-        public void RemoveModifier(StatModifierSlot modifierSlot) =>
-            RemoveModifier(modifierSlot.statType, modifierSlot.modifierType, modifierSlot.value);
-
-        public void AddModifier(EStatType statType, EStatModifierType modifierType, float value)
+        public void AddModifier(TEnum statType, EStatModifierType modifierType, float value)
         {
             this[statType]?.AddModifier(modifierType, value);
             OnStatChangedEvent?.Invoke();
         }
 
-        public void RemoveModifier(EStatType statType, EStatModifierType modifierType, float value)
+        public void RemoveModifier(TEnum statType, EStatModifierType modifierType, float value)
         {
             this[statType]?.RemoveModifier(modifierType, value);
             OnStatChangedEvent?.Invoke();
