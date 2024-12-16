@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using H00N.Extensions;
+using ProjectCoin.Datas;
 using UnityEngine;
 
 namespace ProjectCoin.Farms.AI
@@ -56,7 +57,10 @@ namespace ProjectCoin.Farms.AI
         private void SetField()
         {
             // 나중에 바꿔야 함
-            List<Transform> fields = FindObjectsOfType<Field>().Select(i => i.transform).ToList();
+            List<Transform> fields = FindObjectsOfType<Field>()
+                .Where(i => i.CurrentState != EFieldState.Growing)
+                .Select(i => i.transform).ToList();
+
             if(fields.Count <= 0)
             {
                 SetIdle();
