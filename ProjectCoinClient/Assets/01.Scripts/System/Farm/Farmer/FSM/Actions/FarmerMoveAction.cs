@@ -12,7 +12,7 @@ namespace ProjectCoin.Farms.AI
             if(aiData.currentTarget == null)
                 return;
 
-            Vector3 targetPosition = aiData.currentTarget.position;
+            Vector3 targetPosition = aiData.currentTarget.transform.position;
             aiData.movement.SetDestination(targetPosition.PlaneVector());
         }
     }

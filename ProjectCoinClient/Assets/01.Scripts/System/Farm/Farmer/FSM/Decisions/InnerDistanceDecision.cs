@@ -11,7 +11,7 @@ namespace ProjectCoin.Farms.AI
             if(aiData.currentTarget == null)
                 return false;
 
-            Vector3 directionVector = aiData.currentTarget.position - brain.transform.position;
+            Vector3 directionVector = aiData.currentTarget.transform.position - brain.transform.position;
             bool condition = directionVector.sqrMagnitude < (distanceThreshold * distanceThreshold);
 
             return condition;

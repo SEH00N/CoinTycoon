@@ -7,12 +7,12 @@ namespace ProjectCoin.Networks.Controllers
     [Route(NetworkDefine.FARM_ROUTE)]
     public class FarmController : ControllerBase
     {
-        [HttpPost(PlantCropRequest.POST)]
-        public async Task<ActionResult<PlantCropResponse>> PlantCropRequestPost([FromBody]PlantCropRequest req)
+        [HttpPost(PlantRequest.POST)]
+        public async Task<ActionResult<PlantResponse>> PlantCropRequestPost([FromBody]PlantRequest req)
         {
             // db write
 
-            PlantCropResponse response = new PlantCropResponse() {
+            PlantResponse response = new PlantResponse() {
                 networkResult = ENetworkResult.Success,
                 cropID = req.cropID
             };

@@ -57,8 +57,8 @@ namespace ProjectCoin.Farms.AI
         private void SetField()
         {
             // 나중에 바꿔야 함
-            List<Transform> fields = FindObjectsOfType<Field>()
-                .Where(i => i.CurrentState != EFieldState.Growing)
+            List<Transform> fields = FindObjectsOfType<FarmerTargetableBehaviour>()
+                .Where(i => i.TargetEnable && !i.IsWatched)
                 .Select(i => i.transform).ToList();
 
             if(fields.Count <= 0)
@@ -73,7 +73,7 @@ namespace ProjectCoin.Farms.AI
             
             fields.Sort(transform.DistanceCompare);
             fields.PickShuffle(shuffleCount);
-            aiData.currentTarget = fields[0];
+            aiData.currentTarget = fields[0].GetComponent<FarmerTargetableBehaviour>();
 
             fieldDecided = true;
         }

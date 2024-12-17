@@ -6,7 +6,7 @@ using UnityEngine;
 
 namespace ProjectCoin.Farms
 {
-    public class Field : MonoBehaviour
+    public class Field : FarmerTargetableBehaviour
     {
         [SerializeField] int fieldID = 0;
 
@@ -19,62 +19,36 @@ namespace ProjectCoin.Farms
         private EFieldState currentState = EFieldState.None;
         public EFieldState CurrentState => currentState;
 
+        public override bool TargetEnable => CurrentState != EFieldState.Growing;
         private int growth = 0;
-
-        #if UNITY_EDITOR
-        [Space(10f)]
-        [SerializeField] CropSO testData = null;
-
-        [ContextMenu("TestPlant")]
-        public void TestPlant()
-        {
-            Plant(testData);
-        }
-
-        private void Update()
-        {
-            if(Input.GetKeyDown(KeyCode.Space))
-                Water();
-        }
-        #endif
 
         private void Awake()
         {
             ChangeState(EFieldState.Fallow);
         }
 
-        public void Plow()
-        {
-            if(currentState != EFieldState.Fallow)
-                return;
-
-            ChangeState(EFieldState.Empty);
-        }
-
         public void Plant(CropSO cropData)
         {
-            if(currentState != EFieldState.Empty)
-                return;
-
             currentCropData = cropData;
 
             PlantCropRequest payload = new PlantCropRequest(currentCropData.id, fieldID);
-            NetworkManager.Instance.SendWebRequest<PlantCropResponse>(payload, HandlePlantCropResponse);
+            NetworkManager.Instance.SendWebRequest<PlantCropResponse>(payload, HandlePlantResponse);
         }
-        
-        public void Water()
+
+        private void HandlePlantResponse(PlantCropResponse res)
         {
-            if(currentState != EFieldState.Dried)
+            if(res.networkResult != ENetworkResult.Success)
                 return;
 
-            ChangeState(EFieldState.Growing);
+            growth = -1;
+            ChangeState(EFieldState.Dried);
+            GrowUp();
+            
+            DateManager.Instance.OnTickCycleEvent += HandleTickCycleEvent;
         }
 
         public void Harvest()
         {
-            if(currentState != EFieldState.Fruition)
-                return;
-
             DateManager.Instance.OnTickCycleEvent -= HandleTickCycleEvent;
 
             PlantCropRequest payload = new PlantCropRequest(currentCropData.id, fieldID);
@@ -89,18 +63,6 @@ namespace ProjectCoin.Farms
             // currentCropData.TableRow.productCropID; 생산물 소환
             currentCropData = null;
             ChangeState(EFieldState.Fallow);
-        }
-
-        private void HandlePlantCropResponse(PlantCropResponse res)
-        {
-            if(res.networkResult != ENetworkResult.Success)
-                return;
-
-            growth = -1;
-            ChangeState(EFieldState.Dried);
-            GrowUp();
-            
-            DateManager.Instance.OnTickCycleEvent += HandleTickCycleEvent;
         }
 
         private void HandleTickCycleEvent()
@@ -125,7 +87,7 @@ namespace ProjectCoin.Farms
                 ChangeState(EFieldState.Fruition);
         }
 
-        private void ChangeState(EFieldState targetState)
+        public void ChangeState(EFieldState targetState)
         {
             EFieldState prevState = currentState;
             currentState = targetState;

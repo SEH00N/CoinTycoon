@@ -10,7 +10,7 @@ namespace ProjectCoin.Tests
         public override void EnterState()
         {
             base.EnterState();
-            brain.GetFSMParam<FarmerAIDataSO>().currentTarget = testTarget;
+            // brain.GetFSMParam<FarmerAIDataSO>().currentTarget = testTarget;
         }
     }
 }

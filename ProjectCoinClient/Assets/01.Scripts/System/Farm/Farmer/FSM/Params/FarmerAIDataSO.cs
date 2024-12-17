@@ -8,7 +8,7 @@ namespace ProjectCoin.Farms.AI
     public class FarmerAIDataSO : FSMParamSO
     {
         public FarmerStatSO farmerStat = null;
-        public Transform currentTarget = null;
         public UnitMovement movement = null;
+        public FarmerTargetableBehaviour currentTarget = null;
     }
 }
