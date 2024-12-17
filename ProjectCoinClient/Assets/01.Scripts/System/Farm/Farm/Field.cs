@@ -19,7 +19,9 @@ namespace ProjectCoin.Farms
         private EFieldState currentState = EFieldState.None;
         public EFieldState CurrentState => currentState;
 
-        public override bool TargetEnable => CurrentState != EFieldState.Growing;
+        private bool requestWaiting = false;
+
+        public override bool TargetEnable => !requestWaiting && CurrentState != EFieldState.Growing;
         private int growth = 0;
 
         private void Awake()
@@ -29,14 +31,19 @@ namespace ProjectCoin.Farms
 
         public void Plant(CropSO cropData)
         {
+            if(requestWaiting)
+                return;
+
             currentCropData = cropData;
 
-            PlantCropRequest payload = new PlantCropRequest(currentCropData.id, fieldID);
-            NetworkManager.Instance.SendWebRequest<PlantCropResponse>(payload, HandlePlantResponse);
+            PlantRequest payload = new PlantRequest(currentCropData.id, fieldID);
+            NetworkManager.Instance.SendWebRequest<PlantResponse>(payload, HandlePlantResponse);
+            requestWaiting = true;
         }
 
-        private void HandlePlantResponse(PlantCropResponse res)
+        private void HandlePlantResponse(PlantResponse res)
         {
+            requestWaiting = false;
             if(res.networkResult != ENetworkResult.Success)
                 return;
 
@@ -49,14 +56,19 @@ namespace ProjectCoin.Farms
 
         public void Harvest()
         {
+            if(requestWaiting)
+                return;
+
             DateManager.Instance.OnTickCycleEvent -= HandleTickCycleEvent;
 
-            PlantCropRequest payload = new PlantCropRequest(currentCropData.id, fieldID);
+            HarvestRequest payload = new HarvestRequest(fieldID);
             NetworkManager.Instance.SendWebRequest<HarvestResponse>(payload, HandleHarvestResponse);
+            requestWaiting = true;
         }
 
         private void HandleHarvestResponse(HarvestResponse res)
         {
+            requestWaiting = false;
             if (res.networkResult != ENetworkResult.Success)
                 return;
 

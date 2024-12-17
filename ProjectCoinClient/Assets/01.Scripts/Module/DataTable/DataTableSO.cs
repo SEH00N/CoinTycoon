@@ -26,7 +26,9 @@ namespace H00N.DataTables
                 return;
             #endif
         
-            await UniTask.WaitUntil(() => DataTableManager.Initialized);
+            if(DataTableManager.Initialized == false)
+                await UniTask.WaitUntil(() => DataTableManager.Initialized);
+
             tableRow = GetTableRow();
             OnTableInitialized();
         }

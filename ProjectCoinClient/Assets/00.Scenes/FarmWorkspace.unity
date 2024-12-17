@@ -207,6 +207,81 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!1 &66505540
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 66505541}
+  - component: {fileID: 66505544}
+  - component: {fileID: 66505543}
+  - component: {fileID: 66505542}
+  m_Layer: 0
+  m_Name: Transition_Plant
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &66505541
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 66505540}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 218368863}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &66505542
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 66505540}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b6231e3b0a88247e48d1c7d5677141d4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isReverse: 0
+  targetFeildState: 2
+--- !u!114 &66505543
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 66505540}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 75717092a53214c56922d8fd93336e39, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isReverse: 0
+  distanceThreshold: 0.5
+--- !u!114 &66505544
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 66505540}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2fbc16cf8c22d4c1e9f8c9f7247cab96, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  targetState: {fileID: 1100790075}
 --- !u!1 &74090608
 GameObject:
   m_ObjectHideFlags: 0
@@ -457,6 +532,7 @@ GameObject:
   m_Component:
   - component: {fileID: 155778965}
   - component: {fileID: 155778966}
+  - component: {fileID: 155778967}
   m_Layer: 0
   m_Name: Harvest
   m_TagString: Untagged
@@ -497,7 +573,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 80615417}
         m_TargetAssemblyTypeName: ProjectCoin.Farms.FarmerAnimator, Assembly-CSharp
-        m_MethodName: 
+        m_MethodName: SetHarvest
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -508,6 +584,27 @@ MonoBehaviour:
           m_BoolArgument: 0
         m_CallState: 2
   onStateExitEvent:
+    m_PersistentCalls:
+      m_Calls: []
+--- !u!114 &155778967
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 155778964}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a7bc6e16ebc76427f9e3a100b3e897ec, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  onAnimationStartEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  onAnimationTriggerEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  onAnimationEndEvent:
     m_PersistentCalls:
       m_Calls: []
 --- !u!1 &218368860
@@ -585,8 +682,9 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 739750960}
-  - {fileID: 1714793273}
   - {fileID: 439490525}
+  - {fileID: 66505541}
+  - {fileID: 1714793273}
   - {fileID: 351842045}
   - {fileID: 1127299899}
   - {fileID: 1062757495}
@@ -1146,7 +1244,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 80615417}
         m_TargetAssemblyTypeName: ProjectCoin.Farms.FarmerAnimator, Assembly-CSharp
-        m_MethodName: SetLift
+        m_MethodName: SetLoad
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -1471,7 +1569,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 80615417}
         m_TargetAssemblyTypeName: ProjectCoin.Farms.FarmerAnimator, Assembly-CSharp
-        m_MethodName: 
+        m_MethodName: SetPlow
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -1538,8 +1636,9 @@ Transform:
   m_Children:
   - {fileID: 1717921435}
   - {fileID: 218368863}
-  - {fileID: 901077975}
   - {fileID: 607865611}
+  - {fileID: 1100790074}
+  - {fileID: 901077975}
   - {fileID: 155778965}
   - {fileID: 2051352771}
   - {fileID: 432081873}
@@ -1957,7 +2056,6 @@ GameObject:
   - component: {fileID: 890380602}
   - component: {fileID: 890380604}
   - component: {fileID: 890380605}
-  - component: {fileID: 890380603}
   m_Layer: 0
   m_Name: Transition_Move
   m_TagString: Untagged
@@ -1980,20 +2078,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1717921435}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &890380603
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 890380601}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 75717092a53214c56922d8fd93336e39, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  isReverse: 1
-  distanceThreshold: 0.5
 --- !u!114 &890380604
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2103,7 +2187,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 80615417}
         m_TargetAssemblyTypeName: ProjectCoin.Farms.FarmerAnimator, Assembly-CSharp
-        m_MethodName: 
+        m_MethodName: SetWater
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -2626,6 +2710,92 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isReverse: 0
+--- !u!1 &1100790073
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1100790074}
+  - component: {fileID: 1100790075}
+  - component: {fileID: 1100790076}
+  m_Layer: 0
+  m_Name: Plant
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1100790074
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1100790073}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 681546142}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1100790075
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1100790073}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3515528adf73f471f8009033ff01c22f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  autoTransitioning: 0
+  onStateEnterEvent:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 80615417}
+        m_TargetAssemblyTypeName: ProjectCoin.Farms.FarmerAnimator, Assembly-CSharp
+        m_MethodName: SetPlant
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  onStateExitEvent:
+    m_PersistentCalls:
+      m_Calls: []
+--- !u!114 &1100790076
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1100790073}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b414f91020a154356a9ed3d026203b30, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  onAnimationStartEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  onAnimationTriggerEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  onAnimationEndEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  cropData: {fileID: 11400000, guid: ba062e34239fe47fbb8c0779f020022e, type: 2}
 --- !u!1 &1127299898
 GameObject:
   m_ObjectHideFlags: 0
@@ -3347,6 +3517,7 @@ GameObject:
   - component: {fileID: 1717921435}
   - component: {fileID: 1717921437}
   - component: {fileID: 1717921438}
+  - component: {fileID: 1717921439}
   m_Layer: 0
   m_Name: Idle
   m_TagString: Untagged
@@ -3411,6 +3582,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4021315a575bf4dbca84695e2efc778f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1717921439
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1717921434}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cf619e9acccce45799627f43644c4acc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &1728305029

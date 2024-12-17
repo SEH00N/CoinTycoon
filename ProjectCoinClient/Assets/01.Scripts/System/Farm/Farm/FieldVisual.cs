@@ -26,6 +26,8 @@ namespace ProjectCoin.Farms
 
         private void HandleStateChanged(EFieldState state)
         {
+            Debug.Log($"Field state changed : {state}");
+
             bool wetObjectActive = state == EFieldState.Growing;
             if(wetEffectObject.activeSelf == wetObjectActive)
                 return;
