@@ -497,7 +497,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 80615417}
         m_TargetAssemblyTypeName: ProjectCoin.Farms.FarmerAnimator, Assembly-CSharp
-        m_MethodName: SetHarvest
+        m_MethodName: 
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -1430,6 +1430,7 @@ GameObject:
   m_Component:
   - component: {fileID: 607865611}
   - component: {fileID: 607865612}
+  - component: {fileID: 607865613}
   m_Layer: 0
   m_Name: Plow
   m_TagString: Untagged
@@ -1470,7 +1471,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 80615417}
         m_TargetAssemblyTypeName: ProjectCoin.Farms.FarmerAnimator, Assembly-CSharp
-        m_MethodName: SetPlow
+        m_MethodName: 
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -1483,6 +1484,29 @@ MonoBehaviour:
   onStateExitEvent:
     m_PersistentCalls:
       m_Calls: []
+--- !u!114 &607865613
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 607865610}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c61c42517e8eb47f49b9c17a7f512c99, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  onAnimationStartEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  onAnimationTriggerEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  onAnimationEndEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  fieldCondition: 1
+  targetFieldState: 2
 --- !u!1 &681546141
 GameObject:
   m_ObjectHideFlags: 0
@@ -2038,6 +2062,7 @@ GameObject:
   m_Component:
   - component: {fileID: 901077975}
   - component: {fileID: 901077976}
+  - component: {fileID: 901077977}
   m_Layer: 0
   m_Name: Water
   m_TagString: Untagged
@@ -2078,7 +2103,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 80615417}
         m_TargetAssemblyTypeName: ProjectCoin.Farms.FarmerAnimator, Assembly-CSharp
-        m_MethodName: SetWater
+        m_MethodName: 
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -2091,6 +2116,29 @@ MonoBehaviour:
   onStateExitEvent:
     m_PersistentCalls:
       m_Calls: []
+--- !u!114 &901077977
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 901077974}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c61c42517e8eb47f49b9c17a7f512c99, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  onAnimationStartEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  onAnimationTriggerEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  onAnimationEndEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  fieldCondition: 3
+  targetFieldState: 4
 --- !u!1 &937946108
 GameObject:
   m_ObjectHideFlags: 0
@@ -2515,6 +2563,7 @@ GameObject:
   - component: {fileID: 1062757495}
   - component: {fileID: 1062757497}
   - component: {fileID: 1062757496}
+  - component: {fileID: 1062757498}
   m_Layer: 0
   m_Name: Transition_Load
   m_TagString: Untagged
@@ -2564,6 +2613,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   targetState: {fileID: 432081874}
+--- !u!114 &1062757498
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1062757494}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 16e2334bff6154709bfe94be0ab63824, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isReverse: 0
 --- !u!1 &1127299898
 GameObject:
   m_ObjectHideFlags: 0

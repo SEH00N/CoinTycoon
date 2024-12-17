@@ -33,13 +33,17 @@ namespace H00N.FSM
             transform.GetComponentsInChildren<FSMState>(states);
             states.ForEach(i => i.Init(this));
 
-            if(defaultState != null)
-                ChangeState(defaultState);
+            SetAsDefaultState();
         }
 
         protected virtual void Update()
         {
             currentState?.UpdateState();
+        }
+
+        public void SetAsDefaultState()
+        {
+            ChangeState(defaultState);
         }
 
         public void ChangeState(FSMState targetState)
