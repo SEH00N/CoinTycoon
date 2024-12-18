@@ -8,7 +8,7 @@ namespace H00N.Resources.Pools
         private List<PoolableBehaviour> poolableBehaviours = null;
         
         private ResourceHandle handle = null;
-        public ResourceHandle Handle => handle;
+        internal ResourceHandle Handle => handle;
         
         protected virtual void Awake()
         {
@@ -16,7 +16,7 @@ namespace H00N.Resources.Pools
             GetComponents<PoolableBehaviour>(poolableBehaviours);
         }
 
-        internal void Initialize(ResourceHandle handle)
+        internal void InitializeResource(ResourceHandle handle)
         {
             this.handle = handle;
         }

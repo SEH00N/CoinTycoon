@@ -47,11 +47,17 @@ namespace H00N.Resources.Pools
                     return null;
                 }
 
-                PoolReference resource = resourceHandle.Get<PoolReference>();
+                GameObject resource = resourceHandle.Get<GameObject>();
+                PoolReference poolReference = resource.GetComponent<PoolReference>();
+                if(poolReference == null)
+                {
+                    Debug.LogWarning($"[Pool] Current resource is not a PoolReference. : {resourceName}");
+                    return null;
+                }
 
-                resource.Initialize(resourceHandle);
+                poolReference.InitializeResource(resourceHandle);
 
-                pool = new Pool(resource);
+                pool = new Pool(poolReference);
                 poolTable.Add(resourceName, pool);
             }
 
