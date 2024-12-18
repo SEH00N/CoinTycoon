@@ -24,7 +24,7 @@ namespace H00N.Resources
         {
             resourceLoader = null;
             foreach(ResourceHandle handle in resourceCache.Values)
-                handle.Release();
+                handle?.Release();
             resourceCache = null;
 
             initialized = false;
@@ -32,6 +32,7 @@ namespace H00N.Resources
 
         public static async UniTask<ResourceHandle> LoadResourceHandleAsync(string resourceName)
             => await LoadResourceHandleInternal(resourceName, true);
+
         public static ResourceHandle LoadResourceHandle(string resourceName) 
             => LoadResourceHandleInternal(resourceName, false).GetAwaiter().GetResult();
 
@@ -69,6 +70,17 @@ namespace H00N.Resources
             }
 
             return resource;
+        }
+
+        public static void ReleaseResource(string resourceName)
+        {
+            if(resourceCache.TryGetValue(resourceName, out ResourceHandle handle) == false)
+                return;
+
+            if(handle == null)
+                return;
+
+            handle.Release();
         }
 
         public static async UniTask<T> LoadResourceWithoutCahingAsync<T>(string resourceName) where T : Object
