@@ -1,8 +1,14 @@
 using System;
+using Cysharp.Threading.Tasks;
+using H00N.DataTables;
+using H00N.Resources.Pools;
 using ProjectCoin.Datas;
+using ProjectCoin.DataTables;
+using ProjectCoin.Items;
 using ProjectCoin.Networks;
 using ProjectCoin.Networks.Payloads;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 namespace ProjectCoin.Farms
 {
@@ -25,14 +31,15 @@ namespace ProjectCoin.Farms
         public override bool TargetEnable => !requestWaiting && CurrentState != EFieldState.Growing;
         private int growth = 0;
 
-        private void Awake()
+        protected override void Awake()
         {
+            base.Awake();
             ChangeState(EFieldState.Fallow);
         }
 
         public void Plant(CropSO cropData)
         {
-            if(requestWaiting)
+            if (requestWaiting)
                 return;
 
             currentCropData = cropData;
@@ -45,19 +52,19 @@ namespace ProjectCoin.Farms
         private void HandlePlantResponse(PlantResponse res)
         {
             requestWaiting = false;
-            if(res.networkResult != ENetworkResult.Success)
+            if (res.networkResult != ENetworkResult.Success)
                 return;
 
             growth = -1;
             ChangeState(EFieldState.Dried);
             GrowUp();
-            
+
             DateManager.Instance.OnTickCycleEvent += HandleTickCycleEvent;
         }
 
         public void Harvest()
         {
-            if(requestWaiting)
+            if (requestWaiting)
                 return;
 
             DateManager.Instance.OnTickCycleEvent -= HandleTickCycleEvent;
@@ -67,26 +74,38 @@ namespace ProjectCoin.Farms
             requestWaiting = true;
         }
 
-        private void HandleHarvestResponse(HarvestResponse res)
+        private async void HandleHarvestResponse(HarvestResponse res)
         {
             requestWaiting = false;
             if (res.networkResult != ENetworkResult.Success)
                 return;
 
             // currentCropData.TableRow.productCropID; 생산물 소환
+
+            ItemTableRow tableRow = DataTableManager.GetTable<ItemTable>().GetRow(currentCropData.TableRow.productCropID);
+            if (tableRow != null)
+            {
+                Vector3 randomOffset = Random.insideUnitCircle * 3f;
+                Vector3 itemPosition = TargetPosition + randomOffset;
+
+                Item item = await PoolManager.SpawnAsync(tableRow.prefabName) as Item;
+                item.transform.position = itemPosition;
+                item.Initialize(tableRow.id).Forget();
+            }
+
             currentCropData = null;
             ChangeState(EFieldState.Fallow);
         }
 
         private void HandleTickCycleEvent()
         {
-            if(postponeTick)
+            if (postponeTick)
             {
                 postponeTick = false;
                 return;
             }
-            
-            if(currentState != EFieldState.Growing)
+
+            if (currentState != EFieldState.Growing)
                 return;
 
             ChangeState(EFieldState.Dried);
@@ -96,7 +115,7 @@ namespace ProjectCoin.Farms
         private void GrowUp()
         {
             growth++;
-            if(growth % currentCropData.TableRow.growthRate != 0)
+            if (growth % currentCropData.TableRow.growthRate != 0)
                 return;
 
             int currentStep = growth / currentCropData.TableRow.growthRate;
@@ -110,7 +129,7 @@ namespace ProjectCoin.Farms
         {
             EFieldState prevState = currentState;
             currentState = targetState;
-            if(prevState != currentState)
+            if (prevState != currentState)
                 OnStateChangedEvent?.Invoke(currentState);
 
             postponeTick = true;

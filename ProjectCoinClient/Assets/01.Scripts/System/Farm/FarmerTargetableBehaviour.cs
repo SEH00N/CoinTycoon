@@ -1,8 +1,9 @@
+using H00N.Resources.Pools;
 using UnityEngine;
 
 namespace ProjectCoin.Farms
 {
-    public class FarmerTargetableBehaviour : MonoBehaviour
+    public class FarmerTargetableBehaviour : PoolReference
     {
         private Farmer watcher = null;
         public Farmer Watcher => watcher;

@@ -9,13 +9,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 43ca40d3db41e4540a1ea4093ced0b65, type: 3}
-  m_Name: SweetpotatoCropData
+  m_Script: {fileID: 11500000, guid: f45cb38b01ead4b2bbea41c58bdf471d, type: 3}
+  m_Name: ItemData_0
   m_EditorClassIdentifier: 
-  id: 9
-  tableRow:
-    id: 0
-    growthStep: 0
-    growthRate: 0
-    productCropID: 0
-    nameLocalKey: 0
+  id: 0

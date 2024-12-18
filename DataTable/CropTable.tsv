@@ -1,6 +1,6 @@
 id	growthStep	growthRate	productCropID	nameLocalKey	// desc	// desc
 int	int	int	int	string		
-0	3	20	0	crop_name_strawberry	딸기	봄
+0	1	3	0	crop_name_strawberry	딸기	봄
 1	4	10	1	crop_name_radish	무	봄
 2	4	15	2	crop_name_carrot	당근	봄
 3	4	15	3	crop_name_potato	감자	봄

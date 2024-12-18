@@ -10,9 +10,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 43ca40d3db41e4540a1ea4093ced0b65, type: 3}
-  m_Name: BeanCropData
+  m_Name: CropData_4
   m_EditorClassIdentifier: 
-  id: 8
+  id: 4
   cropPlantSprites:
   - {fileID: 10907, guid: 0000000000000000f000000000000000, type: 0}
   - {fileID: 10901, guid: 0000000000000000f000000000000000, type: 0}
