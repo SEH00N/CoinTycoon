@@ -12,10 +12,10 @@ namespace H00N.FSM
         [SerializeField] UnityEvent onStateEnterEvent = null;
         [SerializeField] UnityEvent onStateExitEvent = null;
 
-        private FSMBrain brain;
+        protected FSMBrain brain;
 
-        private List<FSMAction> actions;
-        private List<FSMTransition> transitions;
+        private List<FSMAction> actions = null;
+        private FSMTransitionGroup rootTransitionGroup = null;
 
         public void Init(FSMBrain brain)
         {
@@ -25,34 +25,27 @@ namespace H00N.FSM
             GetComponents<FSMAction>(actions);
             actions.ForEach(i => i.Init(brain, this));
 
-            transitions = new List<FSMTransition>();
-            GetComponentsInChildren<FSMTransition>(transitions);
-            transitions.ForEach(i => i.Init(brain, this));
+            rootTransitionGroup = GetComponent<FSMTransitionGroup>();
+            rootTransitionGroup?.Init(brain, this);
+            if (autoTransitioning && rootTransitionGroup == null)
+                Debug.LogWarning("[FSM] Auto transitioning is set for this state. but no root transition group exist.");
         }
 
         public void EnterState()
         {
             actions.ForEach(i => i.EnterState());
-
             if (autoTransitioning)
-                transitions.ForEach(i => i.EnterState());
+                rootTransitionGroup?.EnterState();
 
             onStateEnterEvent?.Invoke();
         }
 
         public void UpdateState()
         {
-
             if (autoTransitioning)
             {
-                foreach (FSMTransition transition in transitions)
-                {
-                    if (transition.CheckDecisions())
-                    {
-                        brain.ChangeState(transition.TargetState);
-                        return;
-                    }
-                }
+                if(CheckTransition())
+                    return;
             }
 
             actions.ForEach(i => i.UpdateState());
@@ -61,11 +54,27 @@ namespace H00N.FSM
         public void ExitState()
         {
             actions.ForEach(i => i.ExitState());
-
             if (autoTransitioning)
-                transitions.ForEach(i => i.ExitState());
+                rootTransitionGroup?.EnterState();
 
             onStateExitEvent?.Invoke();
+        }
+
+        private bool CheckTransition()
+        {
+            if (rootTransitionGroup == null)
+            {
+                Debug.LogWarning("[FSM] Auto transitioning is set for this state. but no root transition group exist.");
+                return false;
+            }
+
+            if (rootTransitionGroup.CheckDecisions() == false)
+                return false;
+
+            if (rootTransitionGroup.Transition() == false)
+                return false;
+
+            return true;
         }
     }
 }
