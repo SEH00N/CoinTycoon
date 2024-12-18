@@ -20,6 +20,7 @@ namespace ProjectCoin.Farms
         public EFieldState CurrentState => currentState;
 
         private bool requestWaiting = false;
+        private bool postponeTick = false;
 
         public override bool TargetEnable => !requestWaiting && CurrentState != EFieldState.Growing;
         private int growth = 0;
@@ -79,6 +80,12 @@ namespace ProjectCoin.Farms
 
         private void HandleTickCycleEvent()
         {
+            if(postponeTick)
+            {
+                postponeTick = false;
+                return;
+            }
+            
             if(currentState != EFieldState.Growing)
                 return;
 
@@ -105,6 +112,8 @@ namespace ProjectCoin.Farms
             currentState = targetState;
             if(prevState != currentState)
                 OnStateChangedEvent?.Invoke(currentState);
+
+            postponeTick = true;
         }
     }
 }
