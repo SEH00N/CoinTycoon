@@ -8,10 +8,10 @@ namespace ProjectCoin.Farms.AI
 
         public override bool MakeDecision()
         {
-            if(aiData.currentTarget == null)
+            if(aiData.CurrentTarget == null)
                 return false;
 
-            Vector3 directionVector = aiData.currentTarget.transform.position - brain.transform.position;
+            Vector3 directionVector = aiData.CurrentTarget.TargetPosition - brain.transform.position;
             bool condition = directionVector.sqrMagnitude < (distanceThreshold * distanceThreshold);
 
             return condition;

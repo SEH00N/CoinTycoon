@@ -10,7 +10,7 @@ namespace ProjectCoin.Farms
 
         public override bool MakeDecision()
         {
-            Field targetField = aiData.currentTarget as Field;
+            Field targetField = aiData.CurrentTarget as Field;
             if (targetField == null)
                 return false;
 

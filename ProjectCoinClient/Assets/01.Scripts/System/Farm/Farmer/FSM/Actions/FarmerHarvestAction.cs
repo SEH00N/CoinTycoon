@@ -10,7 +10,7 @@ namespace ProjectCoin.Farms.AI
         {
             base.EnterState();
 
-            currentField = aiData.currentTarget as Field;
+            currentField = aiData.CurrentTarget as Field;
             if(currentField.CurrentState != EFieldState.Fruition)
                 brain.SetAsDefaultState();
         }

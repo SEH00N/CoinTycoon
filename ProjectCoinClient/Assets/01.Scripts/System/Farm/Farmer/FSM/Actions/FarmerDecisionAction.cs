@@ -20,6 +20,7 @@ namespace ProjectCoin.Farms.AI
             base.EnterState();
 
             fieldDecided = false;
+            aiData.ResetTarget();
             SetIdle();
         }
 
@@ -73,7 +74,7 @@ namespace ProjectCoin.Farms.AI
             
             fields.Sort(transform.DistanceCompare);
             fields.PickShuffle(shuffleCount);
-            aiData.currentTarget = fields[0].GetComponent<FarmerTargetableBehaviour>();
+            aiData.SetTarget(fields[0].GetComponent<FarmerTargetableBehaviour>());
 
             fieldDecided = true;
         }

@@ -15,7 +15,7 @@ namespace ProjectCoin.Farms.AI
             base.EnterState();
 
             // State 들어올 때 조건에 맞지 않으면 액션을 취하지 않고 통과시킨다.
-            currentField = aiData.currentTarget as Field;
+            currentField = aiData.CurrentTarget as Field;
             if(currentField.CurrentState != fieldCondition)
                 brain.SetAsDefaultState();
         }

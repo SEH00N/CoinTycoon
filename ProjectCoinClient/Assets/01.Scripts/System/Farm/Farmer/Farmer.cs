@@ -29,8 +29,9 @@ namespace ProjectCoin.Farms
             fsmBrain.Initialize();
             FarmerAIDataSO aiData = fsmBrain.GetFSMParam<FarmerAIDataSO>();
             aiData.farmerStat = statData;
-            aiData.currentTarget = null;
+            aiData.farmer = this;
             aiData.movement = unitMovement;
+            aiData.ResetTarget();
         }
     }
 }

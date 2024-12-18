@@ -4,7 +4,7 @@ namespace ProjectCoin.Farms.AI
     {
         public override bool MakeDecision()
         {
-            return aiData.currentTarget is T;
+            return aiData.CurrentTarget is T;
         }
     }
 }

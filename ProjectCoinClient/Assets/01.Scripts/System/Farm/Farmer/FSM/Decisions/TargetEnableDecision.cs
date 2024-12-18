@@ -4,13 +4,14 @@ namespace ProjectCoin.Farms.AI
     {
         public override bool MakeDecision()
         {
-            if(aiData.currentTarget == null)
+            FarmerTargetableBehaviour currentTarget = aiData.CurrentTarget;
+            if(currentTarget == null)
                 return false;
 
-            if(aiData.currentTarget.TargetEnable == false)
+            if(currentTarget.TargetEnable == false)
                 return false;
 
-            if(aiData.currentTarget.IsWatched)
+            if(currentTarget.IsWatched && aiData.farmer != currentTarget.Watcher)
                 return false;
 
             return true;

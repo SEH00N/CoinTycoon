@@ -9,6 +9,21 @@ namespace ProjectCoin.Farms.AI
     {
         public FarmerStatSO farmerStat = null;
         public UnitMovement movement = null;
-        public FarmerTargetableBehaviour currentTarget = null;
+        public Farmer farmer = null;
+
+        private FarmerTargetableBehaviour currenTarget = null;
+        public FarmerTargetableBehaviour CurrentTarget => currenTarget;
+
+        public void SetTarget(FarmerTargetableBehaviour target)
+        {
+            currenTarget = target;
+            currenTarget?.SetWatcher(farmer);
+        }
+
+        public void ResetTarget()
+        {
+            currenTarget?.SetWatcher(null);
+            currenTarget = null;
+        }
     }
 }
