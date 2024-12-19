@@ -6,18 +6,19 @@ using ProjectCoin.Units;
 
 namespace ProjectCoin.Farms
 {
-    public class Farmer : PoolableBehaviour
+    public class Farmer : PoolReference
     {
         private FarmerStatSO statData = null;
 
         private FSMBrain fsmBrain = null;
         private UnitMovement unitMovement = null;
 
-        private void Awake()
+        protected override void Awake()
         {
+            base.Awake();
+
             unitMovement = GetComponent<UnitMovement>();
             fsmBrain = GetComponent<FSMBrain>();
-            InitializeAsync(0);
         }
 
         public async void InitializeAsync(int id)

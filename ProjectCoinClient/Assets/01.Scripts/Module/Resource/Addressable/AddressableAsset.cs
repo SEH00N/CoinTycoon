@@ -12,6 +12,8 @@ namespace H00N.Resources
 #endif
 
         [SerializeField] private string key = null;
+        public string Key => key;
+
         private T asset = null;
         public T Asset => asset;
 
