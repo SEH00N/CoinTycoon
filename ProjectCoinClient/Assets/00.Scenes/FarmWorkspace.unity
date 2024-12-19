@@ -449,7 +449,8 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   fsmParams:
-  - {fileID: 11400000, guid: 3fffd54a7560a49f08c8efd9c57f4983, type: 2}
+  - reference: {fileID: 11400000, guid: 3fffd54a7560a49f08c8efd9c57f4983, type: 2}
+    key: TestFarmerAIData
   defaultState: {fileID: 1717921437}
 --- !u!114 &139425323
 MonoBehaviour:
@@ -3516,7 +3517,8 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   fsmParams:
-  - {fileID: 11400000, guid: 3fffd54a7560a49f08c8efd9c57f4983, type: 2}
+  - reference: {fileID: 0}
+    key: 
   defaultState: {fileID: 0}
 --- !u!114 &1533639377
 MonoBehaviour:

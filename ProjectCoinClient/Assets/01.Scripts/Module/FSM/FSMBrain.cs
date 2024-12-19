@@ -11,7 +11,7 @@ namespace H00N.FSM
         public UnityEvent<FSMState, FSMState> OnStateChangedEvent = null;
 
         [Space(15f)]
-        [SerializeField] List<FSMParamSO> fsmParams = null;
+        [SerializeField] List<AddressableAsset<FSMParamSO>> fsmParams = null;
         private Dictionary<Type, FSMParamSO> fsmParamDictionary = null;
 
         [Space(15f)]
@@ -23,10 +23,14 @@ namespace H00N.FSM
         {
             fsmParamDictionary = new Dictionary<Type, FSMParamSO>();
             fsmParams.ForEach(i => {
-                Type type = i.GetType();
+                i.Initialize();
+                FSMParamSO paramSO = i.Asset;
+
+                Type type = paramSO.GetType();
                 if (fsmParamDictionary.ContainsKey(type))
                     return;
-                fsmParamDictionary.Add(type, ScriptableObject.Instantiate(i));
+
+                fsmParamDictionary.Add(type, Instantiate(paramSO));
             });
 
             List<FSMState> states = new List<FSMState>();
