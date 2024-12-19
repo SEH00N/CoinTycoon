@@ -1,5 +1,4 @@
 using H00N.FSM;
-using ProjectCoin.Farms;
 using UnityEngine;
 
 namespace ProjectCoin.Farms.AI
@@ -24,6 +23,7 @@ namespace ProjectCoin.Farms.AI
             base.OnHandleAnimationTrigger();
 
             currentItem.transform.SetParent(grabParent);
+            currentItem.SetHolder(aiData.farmer);
             aiData.ResetTarget();
         }
 
@@ -35,13 +35,7 @@ namespace ProjectCoin.Farms.AI
             // 바닥에 떨어진 작물을 든 경우
             // 바닥에 떨어진 알을 든 경우
             // 둥지에 있던 알을 든 경우
-
-            // 이런식으로 하드코딩 하기에는 컨텐츠가 늘어날 수록 좋지 않아보임.
-            // 객체지향화가 필요하다.
-            // 아마 IGrabbale, IStorable 이런 인터페이스 만들어서
-            // FarmerTargetableBehaviour TargetStorage 반환하게 하지 않을까 싶음
-            // aiData.SetTarget(?);
-
+            aiData.SetTarget(currentItem.DeliveryTarget);
             brain.ChangeState(moveState);
         }
     }

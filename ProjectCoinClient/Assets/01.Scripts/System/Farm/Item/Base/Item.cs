@@ -1,7 +1,6 @@
 using Cysharp.Threading.Tasks;
 using H00N.Resources;
 using ProjectCoin.Datas;
-using UnityEngine;
 
 namespace ProjectCoin.Farms
 {
@@ -11,10 +10,19 @@ namespace ProjectCoin.Farms
         public ItemSO ItemData => itemData;
 
         public EItemType ItemType => ItemData.TableRow.itemType;
+        public abstract FarmerTargetableBehaviour DeliveryTarget { get; }
+
+        private Farmer holder = null;
+        public Farmer Holder => holder;
 
         public virtual async UniTask Initialize(int index)
         {
             itemData = await ResourceManager.LoadResourceAsync<ItemSO>($"ItemData_{index}");
+        }
+
+        public void SetHolder(Farmer farmer)
+        {
+            holder = farmer;
         }
     }
 }
