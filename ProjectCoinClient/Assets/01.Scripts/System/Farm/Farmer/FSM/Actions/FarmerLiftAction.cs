@@ -1,5 +1,5 @@
 using H00N.FSM;
-using ProjectCoin.Items;
+using ProjectCoin.Farms;
 using UnityEngine;
 
 namespace ProjectCoin.Farms.AI

@@ -4,7 +4,7 @@ using H00N.DataTables;
 using H00N.Resources.Pools;
 using ProjectCoin.Datas;
 using ProjectCoin.DataTables;
-using ProjectCoin.Items;
+using ProjectCoin.Farms;
 using ProjectCoin.Networks;
 using ProjectCoin.Networks.Payloads;
 using UnityEngine;
@@ -80,15 +80,13 @@ namespace ProjectCoin.Farms
             if (res.networkResult != ENetworkResult.Success)
                 return;
 
-            // currentCropData.TableRow.productCropID; 생산물 소환
-
             ItemTableRow tableRow = DataTableManager.GetTable<ItemTable>().GetRow(currentCropData.TableRow.productCropID);
             if (tableRow != null)
             {
                 Vector3 randomOffset = Random.insideUnitCircle * 3f;
                 Vector3 itemPosition = TargetPosition + randomOffset;
 
-                Item item = await PoolManager.SpawnAsync(tableRow.prefabName) as Item;
+                Item item = await PoolManager.SpawnAsync(tableRow.itemType.ToString()) as Item;
                 item.transform.position = itemPosition;
                 item.Initialize(tableRow.id).Forget();
             }

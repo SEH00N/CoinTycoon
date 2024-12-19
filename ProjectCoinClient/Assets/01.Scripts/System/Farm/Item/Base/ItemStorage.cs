@@ -1,7 +1,7 @@
 using ProjectCoin.Farms;
 using UnityEngine;
 
-namespace ProjectCoin.Items
+namespace ProjectCoin.Farms
 {
     public class ItemStorage : FarmerTargetableBehaviour
     {

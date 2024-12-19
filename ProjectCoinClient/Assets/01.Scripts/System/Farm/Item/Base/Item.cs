@@ -1,13 +1,16 @@
 using Cysharp.Threading.Tasks;
 using H00N.Resources;
-using ProjectCoin.Farms;
+using ProjectCoin.Datas;
+using UnityEngine;
 
-namespace ProjectCoin.Items
+namespace ProjectCoin.Farms
 {
-    public class Item : FarmerTargetableBehaviour
+    public abstract class Item : FarmerTargetableBehaviour
     {
         private ItemSO itemData = null;
         public ItemSO ItemData => itemData;
+
+        public EItemType ItemType => ItemData.TableRow.itemType;
 
         public virtual async UniTask Initialize(int index)
         {

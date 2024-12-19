@@ -1,5 +1,5 @@
-id	prefabName	nameLocalKey	// desc	// desc
-int	string	string		
+id	itemType	nameLocalKey	// desc	// desc
+int	EItemType	string		
 0	Crop	crop_name_strawberry	딸기	봄
 1	Crop	crop_name_radish	무	봄
 2	Crop	crop_name_carrot	당근	봄

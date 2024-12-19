@@ -1,12 +1,13 @@
 using System;
 using H00N.DataTables;
+using ProjectCoin.Datas;
 
 namespace ProjectCoin.DataTables
 {
     [Serializable]
     public class ItemTableRow : DataTableRow
     {
-        public string prefabName;
+        public EItemType itemType;
         public string nameLocalKey;
     }
 

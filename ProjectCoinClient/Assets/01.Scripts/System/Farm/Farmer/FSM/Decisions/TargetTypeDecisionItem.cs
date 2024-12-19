@@ -1,4 +1,4 @@
-using ProjectCoin.Items;
+using ProjectCoin.Farms;
 
 namespace ProjectCoin.Farms.AI
 {

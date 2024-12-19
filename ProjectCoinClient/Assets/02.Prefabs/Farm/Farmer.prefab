@@ -1199,6 +1199,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2795412076001405843}
   - component: {fileID: 9058461102853766911}
+  - component: {fileID: 209009090561967871}
   m_Layer: 0
   m_Name: Lift
   m_TagString: Untagged
@@ -1252,6 +1253,29 @@ MonoBehaviour:
   onStateExitEvent:
     m_PersistentCalls:
       m_Calls: []
+--- !u!114 &209009090561967871
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6474279905623191825}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 461921b47c3a84598bd73da63aa44e6b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  onAnimationStartEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  onAnimationTriggerEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  onAnimationEndEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  grabParent: {fileID: 5872893410692744513}
+  moveState: {fileID: 2143547622503454656}
 --- !u!1 &6632888120666772830
 GameObject:
   m_ObjectHideFlags: 0

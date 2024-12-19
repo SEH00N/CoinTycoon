@@ -1,4 +1,5 @@
 using System.Threading.Tasks;
+using Unity.VisualScripting;
 using UnityEngine;
 using Object = UnityEngine.Object;
 
@@ -28,7 +29,11 @@ namespace H00N.Resources
                 return;
             }
 
-            asset = ResourceManager.LoadResource<T>(key);
+            Object resource = ResourceManager.LoadResource<Object>(key);
+            if(resource is GameObject && typeof(T) != typeof(GameObject))
+                asset = resource.GetComponent<T>();
+            else
+                asset = resource as T;
         }
 
         public async Task InitializeAsync()
@@ -39,7 +44,11 @@ namespace H00N.Resources
                 return;
             }
 
-            asset = await ResourceManager.LoadResourceAsync<T>(key);
+            Object resource = await ResourceManager.LoadResourceAsync<T>(key);
+            if (resource is GameObject && typeof(T) != typeof(GameObject))
+                asset = resource.GetComponent<T>();
+            else
+                asset = resource as T;
         }
     }
 }

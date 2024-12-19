@@ -1,5 +1,5 @@
 
-namespace ProjectCoin.Items
+namespace ProjectCoin.Farms
 {
     public class Crop : Item
     {
