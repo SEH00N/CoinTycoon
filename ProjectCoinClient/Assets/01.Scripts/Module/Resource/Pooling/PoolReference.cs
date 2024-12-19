@@ -24,10 +24,10 @@ namespace H00N.Resources.Pools
         public void Spawn()
         {
             poolableBehaviours.ForEach(i => i?.OnSpawned());
-            SpawnInternal();
+            OnSpawned();
         }
 
-        protected virtual void SpawnInternal() { }
+        protected virtual void OnSpawned() { }
 
         public void Despawn()
         {

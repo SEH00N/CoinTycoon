@@ -32,6 +32,7 @@ namespace H00N.Resources.Pools
             else
                 instance = Object.Instantiate(resource);
             
+            instance.InitializeResource(resource.Handle);
             instance.Spawn();
             return instance;
         }

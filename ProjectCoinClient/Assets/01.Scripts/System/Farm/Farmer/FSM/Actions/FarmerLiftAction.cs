@@ -5,7 +5,6 @@ namespace ProjectCoin.Farms.AI
 {
     public class FarmerLiftAction : FarmerAnimationAction
     {
-        [SerializeField] Transform grabParent = null;
         [SerializeField] FSMState moveState = null;
         private Item currentItem = null;
 
@@ -22,8 +21,7 @@ namespace ProjectCoin.Farms.AI
         {
             base.OnHandleAnimationTrigger();
 
-            currentItem.transform.SetParent(grabParent);
-            currentItem.SetHolder(aiData.farmer);
+            Farmer.GrabItem(currentItem);
             aiData.ResetTarget();
         }
 

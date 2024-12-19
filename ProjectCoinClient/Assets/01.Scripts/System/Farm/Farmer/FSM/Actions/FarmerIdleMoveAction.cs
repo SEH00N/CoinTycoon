@@ -26,6 +26,7 @@ namespace ProjectCoin.Farms.AI
         private void SetIdleTarget()
         {
             targetPosition = Random.insideUnitCircle * 3f;
+            targetPosition += transform.position;
         }
     }
 }
