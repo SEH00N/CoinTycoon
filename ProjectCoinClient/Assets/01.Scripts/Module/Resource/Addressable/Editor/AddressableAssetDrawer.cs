@@ -2,85 +2,88 @@ using UnityEditor;
 using UnityEditor.AddressableAssets;
 using UnityEngine;
 
-[CustomPropertyDrawer(typeof(AddressableAsset<>))]
-public class AddressableAssetDrawer : PropertyDrawer
+namespace H00N.Resources
 {
-    public override void OnGUI(Rect position, SerializedProperty property, GUIContent label)
+    [CustomPropertyDrawer(typeof(AddressableAsset<>))]
+    public class AddressableAssetDrawer : PropertyDrawer
     {
-        EditorGUI.BeginProperty(position, label, property);
-
-        var referenceProperty = property.FindPropertyRelative("reference");
-
-        if (referenceProperty == null)
+        public override void OnGUI(Rect position, SerializedProperty property, GUIContent label)
         {
-            EditorGUI.EndProperty();
-            return;
-        }
+            EditorGUI.BeginProperty(position, label, property);
 
-        // 이전 값 저장
-        Object previousValue = referenceProperty.objectReferenceValue;
+            var referenceProperty = property.FindPropertyRelative("reference");
 
-        // reference 필드와 변수 이름을 함께 표시
-        EditorGUI.PropertyField(position, referenceProperty, label);
-
-        // 값이 변경되었는지 확인
-        Object currentValue = referenceProperty.objectReferenceValue;
-        if (previousValue != currentValue)
-        {
-            var keyProperty = property.FindPropertyRelative("key");
-            if(currentValue == null)
+            if (referenceProperty == null)
             {
-                keyProperty.stringValue = "";
+                EditorGUI.EndProperty();
+                return;
             }
-            else
+
+            // 이전 값 저장
+            Object previousValue = referenceProperty.objectReferenceValue;
+
+            // reference 필드와 변수 이름을 함께 표시
+            EditorGUI.PropertyField(position, referenceProperty, label);
+
+            // 값이 변경되었는지 확인
+            Object currentValue = referenceProperty.objectReferenceValue;
+            if (previousValue != currentValue)
             {
-                if(currentValue is Component component)
-                    currentValue = component.gameObject;
-                
-                string key = GetAddressableKey(currentValue);
-                if(key == null)
+                var keyProperty = property.FindPropertyRelative("key");
+                if (currentValue == null)
                 {
-                    referenceProperty.objectReferenceValue = null;
-                    keyProperty.stringValue = null;
+                    keyProperty.stringValue = "";
                 }
                 else
                 {
-                    keyProperty.stringValue = key;
+                    if (currentValue is Component component)
+                        currentValue = component.gameObject;
+
+                    string key = GetAddressableKey(currentValue);
+                    if (key == null)
+                    {
+                        referenceProperty.objectReferenceValue = null;
+                        keyProperty.stringValue = null;
+                    }
+                    else
+                    {
+                        keyProperty.stringValue = key;
+                    }
+                }
+
+                property.serializedObject.ApplyModifiedProperties();
+            }
+
+            EditorGUI.EndProperty();
+        }
+
+        public override float GetPropertyHeight(SerializedProperty property, GUIContent label)
+        {
+            return EditorGUI.GetPropertyHeight(property.FindPropertyRelative("reference"), label);
+        }
+
+        private string GetAddressableKey(Object targetObject)
+        {
+            var settings = AddressableAssetSettingsDefaultObject.Settings;
+            if (settings == null)
+            {
+                Debug.LogError("AddressableAssetSettings not found.");
+                return null;
+            }
+
+            foreach (var group in settings.groups)
+            {
+                foreach (var entry in group.entries)
+                {
+                    if (entry.MainAsset == targetObject)
+                    {
+                        return entry.address;
+                    }
                 }
             }
 
-            property.serializedObject.ApplyModifiedProperties();
-        }
-
-        EditorGUI.EndProperty();
-    }
-
-    public override float GetPropertyHeight(SerializedProperty property, GUIContent label)
-    {
-        return EditorGUI.GetPropertyHeight(property.FindPropertyRelative("reference"), label);
-    }
-
-    private string GetAddressableKey(Object targetObject)
-    {
-        var settings = AddressableAssetSettingsDefaultObject.Settings;
-        if (settings == null)
-        {
-            Debug.LogError("AddressableAssetSettings not found.");
+            Debug.LogError($"It is not an addressable asset : {targetObject.name}");
             return null;
         }
-
-        foreach (var group in settings.groups)
-        {
-            foreach (var entry in group.entries)
-            {
-                if (entry.MainAsset == targetObject)
-                {
-                    return entry.address;
-                }
-            }
-        }
-
-        Debug.LogError($"It is not an addressable asset : {targetObject.name}");
-        return null;
     }
 }
