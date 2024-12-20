@@ -8,5 +8,10 @@ namespace H00N.Extensions
         {
             return new Vector2(origin.x, origin.y);
         }
+
+        public static bool InsideCircle(this Vector2 point, Vector2 circleCenter, float circleRadius)
+        {
+            return (circleCenter - point).sqrMagnitude <= circleRadius * circleRadius;
+        }
     }
 }
