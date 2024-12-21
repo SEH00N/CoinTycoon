@@ -1,4 +1,5 @@
 using System;
+using H00N.Extensions;
 using UnityEngine;
 
 namespace H00N.Geometry2D
@@ -26,12 +27,27 @@ namespace H00N.Geometry2D
             _ => vertex1
         };
 
+        public readonly bool IntersectWith(Vector2 start, Vector2 end)
+        {
+            return MathExtensions.IntersectWith(this[0], this[1], start, end);
+        }
+
+        public readonly bool IntersectWith(Edge other)
+        {
+            return MathExtensions.IntersectWith(this[0], this[1], other[0], other[1]);
+        }
+
+        public readonly bool CrossingWith(Edge other)
+        {
+            return 
+                MathExtensions.IntersectWith(this[0], this[1], other[0], other[1]) && 
+                !(this[0] == other[0] || this[0] == other[1] || this[1] == other[0] || this[1] == other[1]);
+        }
+
         public override readonly bool Equals(object obj)
         {
             Edge edge = (Edge)obj;
-            return 
-                (vertex0 == edge.vertex0 && vertex1 == edge.vertex1) ||
-                (vertex0 == edge.vertex1 && vertex1 == edge.vertex0);
+            return this == edge;
         }
 
         public override readonly int GetHashCode()

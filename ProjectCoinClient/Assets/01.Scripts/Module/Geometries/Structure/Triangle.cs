@@ -1,3 +1,4 @@
+using System;
 using H00N.Extensions;
 using UnityEngine;
 
@@ -16,6 +17,12 @@ namespace H00N.Geometry2D
         };
 
         public readonly Vector2[] Vertices => new Vector2[] {
+            vertex0,
+            vertex1,
+            vertex2  
+        };
+
+        public readonly Vector3[] Vertices3D => new Vector3[] {
             vertex0,
             vertex1,
             vertex2  
@@ -97,6 +104,17 @@ namespace H00N.Geometry2D
             Vector2 circumcenter = Circumcenter();
             float circumradius = Circumradius(circumcenter);
             return point.InsideCircle(circumcenter, circumradius);
+        }
+
+        public override readonly bool Equals(object obj)
+        {
+            Triangle triangle = (Triangle)obj;
+            return this == triangle;
+        }
+
+        public override readonly int GetHashCode()
+        {
+            return HashCode.Combine(vertex0, vertex1, vertex2);
         }
 
         public static bool operator ==(Triangle left, Triangle right)
