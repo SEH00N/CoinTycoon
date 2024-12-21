@@ -4,7 +4,6 @@ using H00N.DataTables;
 using H00N.Resources.Pools;
 using ProjectCoin.Datas;
 using ProjectCoin.DataTables;
-using ProjectCoin.Farms;
 using ProjectCoin.Networks;
 using ProjectCoin.Networks.Payloads;
 using UnityEngine;
@@ -22,6 +21,7 @@ namespace ProjectCoin.Farms
         private CropSO currentCropData = null;
         public CropSO CurrentCropData => currentCropData;
 
+        // 나중엔 유저 정보에 갖고 있게 해야함
         private EFieldState currentState = EFieldState.None;
         public EFieldState CurrentState => currentState;
 
@@ -37,12 +37,15 @@ namespace ProjectCoin.Farms
             ChangeState(EFieldState.Fallow);
         }
 
-        public void Plant(CropSO cropData)
+        public void SetCropData(CropSO cropData)
+        {
+            currentCropData = cropData;
+        }
+
+        public void Plant()
         {
             if (requestWaiting)
                 return;
-
-            currentCropData = cropData;
 
             PlantRequest payload = new PlantRequest(currentCropData.id, fieldID);
             NetworkManager.Instance.SendWebRequest<PlantResponse>(payload, HandlePlantResponse);
@@ -91,7 +94,6 @@ namespace ProjectCoin.Farms
                 item.Initialize(tableRow.id).Forget();
             }
 
-            currentCropData = null;
             ChangeState(EFieldState.Fallow);
         }
 

@@ -22,7 +22,12 @@ namespace ProjectCoin.Farms.AI
         {
             base.OnHandleAnimationTrigger();
             if(currentField.CurrentState == EFieldState.Empty)
-                currentField.Plant(cropData);
+            {
+                #region Test
+                currentField.SetCropData(cropData);
+                #endregion
+                currentField.Plant();
+            }
         }
 
         protected override void OnHandleAnimationEnd()

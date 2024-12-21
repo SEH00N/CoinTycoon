@@ -155,6 +155,7 @@ Transform:
   - {fileID: 1208624381339884035}
   - {fileID: 3185663310528829691}
   - {fileID: 708272524018485740}
+  - {fileID: 8451014120469571781}
   - {fileID: 7804306192245047658}
   - {fileID: 3237986571792965483}
   - {fileID: 3737993509000693030}
@@ -404,7 +405,7 @@ GameObject:
   - component: {fileID: 881589240161760927}
   - component: {fileID: 7387222373599609637}
   m_Layer: 0
-  m_Name: Transition_Plant
+  m_Name: Transition_PlantDecision
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -437,7 +438,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2fbc16cf8c22d4c1e9f8c9f7247cab96, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  targetState: {fileID: 7982921872825148717}
+  targetState: {fileID: 8938562112589536693}
 --- !u!114 &7387222373599609637
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1238,6 +1239,72 @@ MonoBehaviour:
   onAnimationEndEvent:
     m_PersistentCalls:
       m_Calls: []
+  moveState: {fileID: 2143547622503454656}
+--- !u!1 &6485909997371008427
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 8451014120469571781}
+  - component: {fileID: 8938562112589536693}
+  - component: {fileID: 3932647227359541190}
+  m_Layer: 0
+  m_Name: PlantDecision
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &8451014120469571781
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6485909997371008427}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1938915970394005276}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &8938562112589536693
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6485909997371008427}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3515528adf73f471f8009033ff01c22f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  autoTransitioning: 0
+  onStateEnterEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  onStateExitEvent:
+    m_PersistentCalls:
+      m_Calls: []
+--- !u!114 &3932647227359541190
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6485909997371008427}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8341fd1362ece4064900d17c5ddb4d27, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  plantState: {fileID: 7982921872825148717}
   moveState: {fileID: 2143547622503454656}
 --- !u!1 &6632888120666772830
 GameObject:
