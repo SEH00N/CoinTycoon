@@ -7,6 +7,8 @@ namespace H00N.DataTables
     {
         protected Dictionary<int, TRow> table = null;
 
+        public TRow this[int id] => GetRow(id);
+
         public void CreateTable(string jsonString)
         {
             table = JsonConvert.DeserializeObject<Dictionary<int, TRow>>(jsonString);

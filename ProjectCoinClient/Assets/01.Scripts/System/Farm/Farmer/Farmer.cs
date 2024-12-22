@@ -12,12 +12,16 @@ namespace ProjectCoin.Farms
         [SerializeField] Transform grabPosition = null;
 
         private FarmerStatSO statData = null;
+        public FarmerStatSO StatData => statData;
 
         private FSMBrain fsmBrain = null;
         private UnitMovement unitMovement = null;
 
         private Item holdItem = null;
         public Item HoldItem => holdItem;
+        
+        private FarmerAIDataSO aiData = null;
+        public FarmerAIDataSO AIData => aiData;
 
         protected override void Awake()
         {
@@ -34,11 +38,11 @@ namespace ProjectCoin.Farms
             unitMovement.SetDestination(transform.position);
 
             fsmBrain.Initialize();
-            FarmerAIDataSO aiData = fsmBrain.GetFSMParam<FarmerAIDataSO>();
-            aiData.farmerStat = statData;
-            aiData.farmer = this;
-            aiData.movement = unitMovement;
-            aiData.ResetTarget();
+
+            aiData = fsmBrain.GetFSMParam<FarmerAIDataSO>();
+            aiData.Initialize(this);
+
+            fsmBrain.SetAsDefaultState();
         }
 
         public void GrabItem(Item item)

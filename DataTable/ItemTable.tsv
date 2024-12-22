@@ -16,3 +16,4 @@ int	EItemType	string
 13	Crop	crop_name_spinach	시금치	겨울
 14	Crop	crop_name_cauliflower	콜리플라워	겨울
 15	Crop	crop_name_cabbage	양배추	겨울
+16	Egg	crop_name_test_egg	테스트 알	-

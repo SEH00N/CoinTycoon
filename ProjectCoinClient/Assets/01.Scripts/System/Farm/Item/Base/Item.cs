@@ -10,7 +10,7 @@ namespace ProjectCoin.Farms
         public ItemSO ItemData => itemData;
 
         public EItemType ItemType => ItemData.TableRow.itemType;
-        public abstract FarmerTargetableBehaviour DeliveryTarget { get; }
+        public FarmerTargetableBehaviour DeliveryTarget => GetDeliveryTarget();
 
         private Farmer holder = null;
         public Farmer Holder => holder;
@@ -24,5 +24,7 @@ namespace ProjectCoin.Farms
         {
             holder = farmer;
         }
+
+        protected abstract FarmerTargetableBehaviour GetDeliveryTarget();
     }
 }

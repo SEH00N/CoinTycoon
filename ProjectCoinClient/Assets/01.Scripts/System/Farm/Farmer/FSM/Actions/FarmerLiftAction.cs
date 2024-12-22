@@ -22,7 +22,7 @@ namespace ProjectCoin.Farms.AI
             base.OnHandleAnimationTrigger();
 
             Farmer.GrabItem(currentItem);
-            aiData.ResetTarget();
+            aiData.PopTarget();
         }
 
         protected override void OnHandleAnimationEnd()
@@ -33,7 +33,7 @@ namespace ProjectCoin.Farms.AI
             // 바닥에 떨어진 작물을 든 경우
             // 바닥에 떨어진 알을 든 경우
             // 둥지에 있던 알을 든 경우
-            aiData.SetTarget(currentItem.DeliveryTarget);
+            aiData.PushTarget(currentItem.DeliveryTarget);
             brain.ChangeState(moveState);
         }
     }

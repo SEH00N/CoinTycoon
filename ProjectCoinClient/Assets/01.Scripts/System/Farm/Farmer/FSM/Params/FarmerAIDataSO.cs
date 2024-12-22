@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using H00N.FSM;
 using ProjectCoin.Units;
 using UnityEngine;
@@ -11,19 +12,55 @@ namespace ProjectCoin.Farms.AI
         public UnitMovement movement = null;
         public Farmer farmer = null;
 
-        private FarmerTargetableBehaviour currenTarget = null;
-        public FarmerTargetableBehaviour CurrentTarget => currenTarget;
+        private Stack<FarmerTargetableBehaviour> targetStack = null;
+        public FarmerTargetableBehaviour CurrentTarget {
+            get {
+                if(targetStack.Count <= 0)
+                    return null;
 
-        public void SetTarget(FarmerTargetableBehaviour target)
+                return targetStack.Peek();
+            }
+        }
+        // private FarmerTargetableBehaviour currenTarget = null;
+
+        public void Initialize(Farmer farmer)
         {
-            currenTarget = target;
-            currenTarget?.SetWatcher(farmer);
+            targetStack = new Stack<FarmerTargetableBehaviour>();
+
+            farmerStat = farmer.StatData;
+            movement = farmer.GetComponent<UnitMovement>();
+
+            this.farmer = farmer;
         }
 
-        public void ResetTarget()
+        public void PushTarget(FarmerTargetableBehaviour target)
         {
-            currenTarget?.SetWatcher(null);
-            currenTarget = null;
+            targetStack.Push(target);
+            target?.SetWatcher(farmer);
         }
+
+        public void PopTarget()
+        {
+            FarmerTargetableBehaviour target = targetStack.Pop();
+            target?.SetWatcher(null);
+        }
+
+        public void ClearTarget()
+        {
+            while(targetStack.Count > 0)
+                PopTarget();
+        }
+
+        // public void SetTarget(FarmerTargetableBehaviour target)
+        // {
+        //     currenTarget = target;
+        //     currenTarget?.SetWatcher(farmer);
+        // }
+
+        // public void ResetTarget()
+        // {
+        //     currenTarget?.SetWatcher(null);
+        //     currenTarget = null;
+        // }
     }
 }

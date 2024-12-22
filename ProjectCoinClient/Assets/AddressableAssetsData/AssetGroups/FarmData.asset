@@ -113,6 +113,18 @@ MonoBehaviour:
     m_SerializedLabels:
     - default
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 06d26eff9a7af4516b7598667747c08b
+    m_Address: CropData_16
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - default
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 28f260afb418a4a2dbc0ef00e57089a1
+    m_Address: CropData_17
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - default
+    FlaggedDuringContentUpdateRestriction: 0
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: 381c9a52a663248309bd77bf27e559cf, type: 2}
   m_SchemaSet:

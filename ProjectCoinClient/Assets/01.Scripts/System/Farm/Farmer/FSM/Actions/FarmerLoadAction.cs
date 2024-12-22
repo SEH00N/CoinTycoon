@@ -19,6 +19,7 @@ namespace ProjectCoin.Farms.AI
 
             Item item = Farmer.HoldItem;
             currentStorage.StoreItem(item);
+            Farmer.ReleaseItem();
         }
 
         protected override void OnHandleAnimationEnd()

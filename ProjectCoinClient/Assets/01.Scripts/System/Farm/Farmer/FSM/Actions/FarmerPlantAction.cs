@@ -5,8 +5,6 @@ namespace ProjectCoin.Farms.AI
 {
     public class FarmerPlantAction : FarmerAnimationAction
     {
-        [Header("Test")]
-        [SerializeField] CropSO cropData = null;
         private Field currentField = null;
 
         public override void EnterState()
@@ -22,12 +20,7 @@ namespace ProjectCoin.Farms.AI
         {
             base.OnHandleAnimationTrigger();
             if(currentField.CurrentState == EFieldState.Empty)
-            {
-                #region Test
-                currentField.SetCropData(cropData);
-                #endregion
                 currentField.Plant();
-            }
         }
 
         protected override void OnHandleAnimationEnd()

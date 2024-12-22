@@ -6,6 +6,7 @@ using ProjectCoin.Datas;
 using ProjectCoin.DataTables;
 using ProjectCoin.Networks;
 using ProjectCoin.Networks.Payloads;
+using TMPro;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
@@ -83,18 +84,32 @@ namespace ProjectCoin.Farms
             if (res.networkResult != ENetworkResult.Success)
                 return;
 
-            ItemTableRow tableRow = DataTableManager.GetTable<ItemTable>().GetRow(currentCropData.TableRow.productCropID);
-            if (tableRow != null)
-            {
-                Vector3 randomOffset = Random.insideUnitCircle * 3f;
-                Vector3 itemPosition = TargetPosition + randomOffset;
+            UniTask task = CurrentCropData.TableRow.cropType switch {
+                ECropType.Crop => SpawnCrop(),
+                ECropType.Egg => SpawnFarmer(),
+            };
 
-                Item item = await PoolManager.SpawnAsync(tableRow.itemType.ToString()) as Item;
-                item.transform.position = itemPosition;
-                item.Initialize(tableRow.id).Forget();
-            }
-
+            await task;
             ChangeState(EFieldState.Fallow);
+        }
+
+        private async UniTask SpawnFarmer()
+        {
+            Debug.Log($"We've got a new farmer!! : {currentCropData.TableRow.productCropID}");
+        }
+
+        private async UniTask SpawnCrop()
+        {
+            ItemTableRow tableRow = DataTableManager.GetTable<ItemTable>().GetRow(currentCropData.TableRow.productCropID);
+            if (tableRow == null)
+                return;
+
+            Vector3 randomOffset = Random.insideUnitCircle * 3f;
+            Vector3 itemPosition = TargetPosition + randomOffset;
+
+            Item item = await PoolManager.SpawnAsync(tableRow.itemType.ToString()) as Item;
+            item.transform.position = itemPosition;
+            item.Initialize(tableRow.id).Forget();
         }
 
         private void HandleTickCycleEvent()

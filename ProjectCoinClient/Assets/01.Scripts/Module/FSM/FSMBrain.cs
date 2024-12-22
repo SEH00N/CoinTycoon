@@ -37,8 +37,6 @@ namespace H00N.FSM
             List<FSMState> states = new List<FSMState>();
             transform.GetComponentsInChildren<FSMState>(states);
             states.ForEach(i => i.Init(this));
-
-            SetAsDefaultState();
         }
 
         protected virtual void Update()

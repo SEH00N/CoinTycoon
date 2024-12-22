@@ -1,6 +1,7 @@
 using H00N.DataTables;
 using H00N.FSM;
 using H00N.Resources;
+using H00N.Resources.Pools;
 using ProjectCoin.Datas;
 using ProjectCoin.DataTables;
 using ProjectCoin.Farms.Helpers;
@@ -13,6 +14,9 @@ namespace ProjectCoin.Farms.AI
         [SerializeField] FSMState plantState = null;
         [SerializeField] FSMState moveState = null;
 
+        [Header("Test")]
+        [SerializeField] CropSO cropData = null;
+
         public override void EnterState()
         {
             base.EnterState();
@@ -24,22 +28,36 @@ namespace ProjectCoin.Farms.AI
                 return;
             }
 
-            if(currentField.CurrentCropData == null)
+            #region Test
+            currentField.SetCropData(cropData);
+            #endregion
+
+            if (currentField.CurrentCropData == null)
             {
                 brain.SetAsDefaultState();
                 return;
             }
 
-            ItemTableRow itemTableRow = DataTableManager.GetTable<ItemTable>().GetRow(currentField.CurrentCropData.TableRow.productCropID);
-            if(itemTableRow == null)
+            ECropType cropType = currentField.CurrentCropData.TableRow.cropType;
+            switch(cropType)
             {
-                brain.SetAsDefaultState();
-                return;
+                case ECropType.Egg:
+                    PlantDecisionEgg(currentField);
+                    break;
+                case ECropType.Crop:
+                    PlantDecisionCrop();
+                    break;
             }
+        }
 
-            if (itemTableRow.itemType == EItemType.Egg && aiData.farmer.HoldItem == null)
+        private void PlantDecisionEgg(Field currentField)
+        {
+            Item holdItem = aiData.farmer.HoldItem;
+            if (holdItem == null)
             {
-                if(TryTarggetingEgg(itemTableRow.id) == false)
+                int eggCropID = currentField.CurrentCropData.TableRow.id;
+                int eggItemID = DataTableManager.GetTable<EggCropTable>()[eggCropID].itemID;
+                if (TryTarggetingEgg(eggItemID) == false)
                 {
                     brain.SetAsDefaultState();
                     return;
@@ -48,27 +66,33 @@ namespace ProjectCoin.Farms.AI
                 brain.ChangeState(moveState);
                 return;
             }
+            else
+            {
+                aiData.farmer.ReleaseItem();
+                PoolManager.Despawn(holdItem);
 
-            // 아이템 티입이 Crop이거나 심고자 하는 알을 지니고 있는 상태
+                brain.ChangeState(plantState);
+            }
+        }
+
+        private void PlantDecisionCrop()
+        {
             brain.ChangeState(plantState);
         }
 
-        private bool TryTarggetingEgg(int eggID)
+        private bool TryTarggetingEgg(int eggItemID)
         {
             // 원하는 알을 잡게 해주자.
             Farm currentFarm = new GetBelongsFarm(brain.transform).currentFarm;
             if (currentFarm == null)
                 return false;
 
-            ItemSO itemData = ResourceManager.LoadResource<ItemSO>($"ItemData_{eggID}");
-            if(itemData == null)
-                return false;
-
+            ItemSO itemData = ResourceManager.LoadResource<ItemSO>($"ItemData_{eggItemID}");
             Egg targetEgg = currentFarm.EggStorage.GetEgg(itemData);
             if(targetEgg == null)
                 return false;
 
-            aiData.SetTarget(targetEgg);            
+            aiData.PushTarget(targetEgg);
             return true;
         }
     }

@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using UnityEngine;
 
 namespace ProjectCoin.Farms
 {
@@ -8,9 +9,12 @@ namespace ProjectCoin.Farms
 
         protected override void Awake()
         {
-            eggList = null;
+            base.Awake();
+            eggList = new List<Egg>();
         }
-        
+
+        public bool Contains(Egg egg) => eggList.Contains(egg);
+
         public Egg GetEgg(ItemSO itemData)
         {
             Egg egg = eggList.Find(i => i.ItemData == itemData);
@@ -21,9 +25,16 @@ namespace ProjectCoin.Farms
         {
             bool result = base.ConsumeItem(itemData);
 
-            int index = eggList.FindIndex(i => i.ItemData ==itemData);
+            int index = eggList.FindIndex(i => i.ItemData == itemData);
             if(index != -1)
+            {
+                Egg egg = eggList[index];
+                egg.transform.SetParent(null);
+                egg.SetStorage(null);
+
                 eggList.RemoveAt(index);
+
+            }
 
             return result;
         }
@@ -31,7 +42,13 @@ namespace ProjectCoin.Farms
         public override void StoreItem(Item item)
         {
             base.StoreItem(item);
-            eggList.Add(item as Egg);
+
+            Egg egg = item as Egg;
+            egg.transform.SetParent(transform);
+            egg.transform.localPosition = Vector3.zero;
+            egg.SetStorage(this);
+
+            eggList.Add(egg);
         }
     }
 }

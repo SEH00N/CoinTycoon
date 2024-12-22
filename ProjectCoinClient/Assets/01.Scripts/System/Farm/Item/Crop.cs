@@ -1,8 +1,13 @@
+using ProjectCoin.Farms.Helpers;
 
 namespace ProjectCoin.Farms
 {
     public class Crop : Item
     {
-        public override FarmerTargetableBehaviour DeliveryTarget => FindObjectOfType<CropStorage>();
+        protected override FarmerTargetableBehaviour GetDeliveryTarget()
+        {
+            Farm farm = new GetBelongsFarm(transform).currentFarm;
+            return farm.CropStorage;
+        }
     }
 }
