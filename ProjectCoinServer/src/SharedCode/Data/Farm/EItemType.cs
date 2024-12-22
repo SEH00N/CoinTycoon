@@ -4,6 +4,7 @@ namespace ProjectCoin.Datas
     {
         None,
         Crop,
-        Egg
+        Egg,
+        Seed
     }
 }

@@ -10,9 +10,14 @@ namespace ProjectCoin.Networks
 
         private ServerConnection serverConnection = null;
 
-        public NetworkManager()
+        public void Initialize()
         {
             instance = this;
+        }
+
+        public void Release()
+        {
+            instance = null;
         }
 
         public void SetServetConnection(ServerConnection connection)

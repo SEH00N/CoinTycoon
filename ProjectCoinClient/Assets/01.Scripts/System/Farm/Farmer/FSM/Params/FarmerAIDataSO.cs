@@ -12,6 +12,8 @@ namespace ProjectCoin.Farms.AI
         public UnitMovement movement = null;
         public Farmer farmer = null;
 
+        public CropSO currentSeedData = null;
+
         private Stack<FarmerTargetableBehaviour> targetStack = null;
         public FarmerTargetableBehaviour CurrentTarget {
             get {

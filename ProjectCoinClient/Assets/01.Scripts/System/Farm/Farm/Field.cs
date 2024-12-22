@@ -4,9 +4,9 @@ using H00N.DataTables;
 using H00N.Resources.Pools;
 using ProjectCoin.Datas;
 using ProjectCoin.DataTables;
+using ProjectCoin.Farms.Helpers;
 using ProjectCoin.Networks;
 using ProjectCoin.Networks.Payloads;
-using TMPro;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
@@ -26,28 +26,37 @@ namespace ProjectCoin.Farms
         private EFieldState currentState = EFieldState.None;
         public EFieldState CurrentState => currentState;
 
+        private Farm currentFarm = null;
+
         private bool requestWaiting = false;
         private bool postponeTick = false;
-
-        public override bool TargetEnable => !requestWaiting && CurrentState != EFieldState.Growing;
         private int growth = 0;
+
+        public override bool TargetEnable {
+            get {
+                if(requestWaiting)
+                    return false;
+
+                if(CurrentState == EFieldState.Empty)
+                    return currentFarm.CropQueueValid;
+
+                return CurrentState != EFieldState.Growing;
+            }
+        }
 
         protected override void Awake()
         {
             base.Awake();
+            currentFarm = new GetBelongsFarm(transform).currentFarm;
             ChangeState(EFieldState.Fallow);
         }
 
-        public void SetCropData(CropSO cropData)
-        {
-            currentCropData = cropData;
-        }
-
-        public void Plant()
+        public void Plant(CropSO cropData)
         {
             if (requestWaiting)
                 return;
 
+            currentCropData = cropData;
             PlantRequest payload = new PlantRequest(currentCropData.id, fieldID);
             NetworkManager.Instance.SendWebRequest<PlantResponse>(payload, HandlePlantResponse);
             requestWaiting = true;
@@ -109,7 +118,7 @@ namespace ProjectCoin.Farms
 
             Item item = await PoolManager.SpawnAsync(tableRow.itemType.ToString()) as Item;
             item.transform.position = itemPosition;
-            item.Initialize(tableRow.id).Forget();
+            item.Initialize(tableRow.id);
         }
 
         private void HandleTickCycleEvent()

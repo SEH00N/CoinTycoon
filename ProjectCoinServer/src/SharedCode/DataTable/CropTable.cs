@@ -8,6 +8,7 @@ namespace ProjectCoin.DataTables
     public class CropTableRow : DataTableRow
     {
         public ECropType cropType;
+        public int seedItemID;
         public int growthStep;
         public int growthRate;
         public int productCropID;

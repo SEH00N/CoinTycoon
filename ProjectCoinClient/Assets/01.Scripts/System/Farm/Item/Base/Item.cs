@@ -15,9 +15,9 @@ namespace ProjectCoin.Farms
         private Farmer holder = null;
         public Farmer Holder => holder;
 
-        public virtual async UniTask Initialize(int index)
+        public virtual void Initialize(int index)
         {
-            itemData = await ResourceManager.LoadResourceAsync<ItemSO>($"ItemData_{index}");
+            itemData = ResourceManager.LoadResource<ItemSO>($"ItemData_{index}");
         }
 
         public void SetHolder(Farmer farmer)

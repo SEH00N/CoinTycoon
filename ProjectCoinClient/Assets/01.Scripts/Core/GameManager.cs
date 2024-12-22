@@ -32,7 +32,8 @@ namespace ProjectCoin
             Dictionary<string, string> jsonDatas = JsonConvert.DeserializeObject<Dictionary<string, string>>(dataTableJsonData.text);
             DataTableManager.Initialize(jsonDatas);
 
-            new NetworkManager();
+            // GetComponent<FarmManager>().Initialize();
+            new NetworkManager().Initialize();
         }
 
         private void OnApplicationQuit()
@@ -40,6 +41,9 @@ namespace ProjectCoin
             DataTableManager.Release();
             PoolManager.Release();
             ResourceManager.Release();
+
+            // FarmManager.Instance.Release();
+            NetworkManager.Instance.Release();
         }
     }
 }

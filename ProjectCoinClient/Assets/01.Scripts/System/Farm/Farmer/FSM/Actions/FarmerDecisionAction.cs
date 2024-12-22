@@ -58,23 +58,23 @@ namespace ProjectCoin.Farms.AI
         private void SetField()
         {
             // 나중에 바꿔야 함
-            List<Transform> fields = FindObjectsOfType<FarmerTargetableBehaviour>()
+            List<Transform> targets = FindObjectsOfType<FarmerTargetableBehaviour>()
                 .Where(i => i.TargetEnable && !i.IsWatched)
                 .Select(i => i.transform).ToList();
 
-            if(fields.Count <= 0)
+            if(targets.Count <= 0)
             {
                 SetIdle();
                 return;
             }
 
-            int fieldCount = fields.Count;
+            int targetCount = targets.Count;
             float theta = (aiData.farmerStat[EFarmerStatType.IQ] - DEFINE.IQ_STAT_MIN) / (DEFINE.IQ_STAT_MAX - DEFINE.IQ_STAT_MIN);
-            int shuffleCount = fieldCount - Mathf.RoundToInt(fieldCount * theta);
+            int shuffleCount = targetCount - Mathf.RoundToInt(targetCount * theta);
             
-            fields.Sort(transform.DistanceCompare);
-            fields.PickShuffle(shuffleCount);
-            aiData.PushTarget(fields[0].GetComponent<FarmerTargetableBehaviour>());
+            targets.Sort(transform.DistanceCompare);
+            targets.PickShuffle(shuffleCount);
+            aiData.PushTarget(targets[0].GetComponent<FarmerTargetableBehaviour>());
 
             fieldDecided = true;
         }
